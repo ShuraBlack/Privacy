@@ -10,7 +10,11 @@
     <meta name="title" content="Privacy Online" />
     <meta name="description" content="Wie gut kennst du deine Freunde?" />
 
-    <!-- Root level Styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Root level-->
     <style>
         :root {
             --background: rgb(17,23,34);
@@ -54,8 +58,8 @@
             justify-content: flex-start;
             align-items: center;
         }
-        .container * {
-            font-family: 'Railway', Helvetica, sans-serif;
+        * {
+            font-family: 'Roboto', Helvetica, sans-serif;
         }
 
         .allowed-select {
@@ -116,6 +120,32 @@
             tranform: translateY(-10%);
         }
 
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 525px) {
+            .answer-container .other-answer {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+
+    <!-- Header -->
+    <style>
         .header {
             width: 100%;
             margin-top: 20px;
@@ -141,7 +171,10 @@
             font-weight: 100;
             color: var(--dark-foreground);
         }
+    </style>
 
+    <!-- Error handling -->
+    <style>
         .error-container {
             width: 100%;
             display: none;
@@ -192,7 +225,10 @@
             text-align: center;
             width: 80%;
         }
+    </style>
 
+    <!-- Audio -->
+    <style>
         .audio-settings {
             display: flex;
             position: absolute;
@@ -284,7 +320,10 @@
             border-radius: 50%;
             border: 2px solid var(--accent);
         }
+    </style>
 
+    <!-- Overlay -->
+    <style>
         .overlay-notification {
             display: none;
             position: absolute;
@@ -333,23 +372,10 @@
                 transform: rotate(0deg);
             }
         }
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
+    </style>
 
+    <!-- Progress bar -->
+    <style>
         .progress-container {
             width: 100%;
             max-width: 600px;
@@ -378,7 +404,10 @@
             overflow: hidden;
             transition: width 0.1s ease;
         }
+    </style>
 
+    <!-- Interactive -->
+    <style>
         .question-container {
             width: 100%;
             margin: 10px 0px;
@@ -450,6 +479,12 @@
             outline: 1px solid var(--primary);
             backdrop-filter: blur(5px);
         }
+        .answer-container label {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--darkest-foreground);
+            width: 100%;
+        }
         .answer-container .own-answer {
             width: 100%;
             display: flex;
@@ -518,13 +553,10 @@
             outline: 1px solid var(--accent);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
         }
+    </style>
 
-        @media (max-width: 525px) {
-            .answer-container .other-answer {
-                justify-content: flex-start;
-            }
-        }
-
+    <!-- Member List -->
+    <style>
         .member-list {
             width: 100%;
             padding: 10px 10px;
@@ -574,7 +606,10 @@
             min-height: 20px;
             fill: var(--background);
         }
+    </style>
 
+    <!-- Others -->
+    <style>
         .restart {
             display: none;
             justify-content: center;
@@ -619,7 +654,10 @@
             text-align: center;
             margin-top: 20px;
         }
+    </style>
 
+    <!-- Footer -->
+    <style>
         .footer {
             position: absolute;
             bottom: 0;
@@ -630,6 +668,7 @@
         }
     </style>
 
+    <!-- Background -->
     <style>
         *{
             margin: 0px;
@@ -783,85 +822,78 @@
     <source src="/media/background-music.mp3" type="audio/mpeg">
     Dein Browser unterstützt dieses Audio-Element nicht.
 </audio>
+
 <body>
-<div class="area" >
-    <ul class="circles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-</div >
-<div class="container" id="container">
-    <div class="centered">
-        <div class="header">
-            <img src="/media/logo.png">
-            <div class="header-text">
-                <label class="title">Privacy - Online</label>
-                <label class="subtitle">Wie gut kennst du deine Freunde?</label>
+    <div class="container" id="container">
+        <div class="centered">
+            <div class="header">
+                <img src="/media/logo.png">
+                <div class="header-text">
+                    <label class="title">Privacy - Online</label>
+                    <label class="subtitle">Wie gut kennst du deine Freunde?</label>
+                </div>
+            </div>
+
+            <div class="progress-container" id="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <label id="countdown">0</label>
+            </div>
+
+            <div class="question-container" id="question-container">
+                <label class="question-title">Frage <span id="question-count">0</span></label>
+                <label id="question">Warte auf andere Spieler...</label>
+                <label class="question-subtext" id="global-answer"></label>
+            </div>
+
+            <div class="answer-container no-input" id="answer-container">
+                <label>Was sagst du?</label>
+                <div class="own-answer">
+                    <button data-color="green">Ja</button>
+                    <button data-color="red">Nein</button>
+                </div>
+
+                <label>Wie viel sagen Ja?</label>
+                <div class="other-answer">
+                    <button data-color="blue">0</button>
+                    <button data-color="blue">1</button>
+                    <button data-color="blue">2</button>
+                    <button data-color="blue">3</button>
+                    <button data-color="blue">4</button>
+                    <button data-color="blue">5</button>
+                    <button data-color="blue">6</button>
+                    <button data-color="blue">7</button>
+                    <button data-color="blue">8</button>
+                    <button data-color="blue">9</button>
+                    <button data-color="blue">10</button>
+                </div>
+            </div>
+
+            <div class="member-list" id="member-list">
+
+            </div>
+
+            <button class="restart" id="restart">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
+                Restart
+            </button>
+            <label class="restart-message" id="restart-message">
+                Warte auf Host...
+            </label>
+
+            <div class="error-container" id="error-container">
+                <label class="error-title">Uppsi</label>
+                <label class="error-subtitle">Es gab ein Problem bei der Verbindung</label>
+                <label class="error-message" id="error-message"></label>
+                <button>Zurück zur Startseite</button>
             </div>
         </div>
 
-        <div class="progress-container" id="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-            <label id="countdown">0</label>
-        </div>
-
-        <div class="question-container" id="question-container">
-            <label class="question-title">Frage</label>
-            <label id="question">Warte auf andere Spieler...</label>
-            <label class="question-subtext" id="global-answer"></label>
-        </div>
-
-        <div class="answer-container no-input" id="answer-container">
-            <div class="own-answer">
-                <button data-color="green">Ja</button>
-                <button data-color="red">Nein</button>
-            </div>
-
-            <div class="other-answer">
-                <button data-color="blue">0</button>
-                <button data-color="blue">1</button>
-                <button data-color="blue">2</button>
-                <button data-color="blue">3</button>
-                <button data-color="blue">4</button>
-                <button data-color="blue">5</button>
-                <button data-color="blue">6</button>
-                <button data-color="blue">7</button>
-                <button data-color="blue">8</button>
-                <button data-color="blue">9</button>
-                <button data-color="blue">10</button>
-            </div>
-        </div>
-
-        <div class="member-list" id="member-list">
-
-        </div>
-
-        <button class="restart" id="restart">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                <path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
-            Restart
-        </button>
-        <label class="restart-message" id="restart-message">
-            Warte auf Host...
+        <label class="footer">
+            © 2025 Ronny & Julii
         </label>
-
-        <div class="error-container" id="error-container">
-            <label class="error-title">Uppsi</label>
-            <label class="error-subtitle">Es gab ein Problem bei der Verbindung</label>
-            <label class="error-message" id="error-message"></label>
-            <button>Zurück zur Startseite</button>
-        </div>
     </div>
-
+    <!-- Absolute page content -->
     <div class="audio-settings" id="audio-settings">
         <div class="audio-slide" id="audio-slider">
             <input type="range" min="0" max="100" step="1" value="5">
@@ -875,15 +907,25 @@
         </label>
     </div>
 
-    <label class="footer">
-        © 2025 Ronny & Julii
-    </label>
-</div>
+    <div class="area" >
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div >
 </body>
 
+<!-- Functions -->
 <script>
-    let countdownRequest = null;
-
     function startCountdown(targetTime) {
         const startTime = Date.now();
 
@@ -918,9 +960,7 @@
     function timePlusSeconds(seconds) {
         return Date.now() + 1000 * seconds;
     }
-</script>
 
-<script>
     function generateUUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -934,6 +974,11 @@
         });
     }
 
+    function incrementQuestionCount() {
+        const questionCount = document.getElementById('question-count');
+        const currentCount = parseInt(questionCount.textContent);
+        questionCount.textContent = currentCount + 1;
+    }
 
     function addMember(name) {
         const memberList = document.querySelector('.member-list');
@@ -954,9 +999,10 @@
     }
 
     function removeMember(memberId) {
-        const encodedNickname = CSS.escape(name);
+        const encodedNickname = CSS.escape(memberId);
         const member = document.getElementById(encodedNickname);
         if (member) {
+            console.log(`Removing member: ${memberId}`);
             member.remove();
         }
     }
@@ -1065,7 +1111,7 @@
         const restartButton = document.getElementById('restart');
         const restartMessage = document.getElementById('restart-message');
 
-        progressContainer.style.display = 'flex';
+        progressContainer.style.display = 'grid';
         questionContainer.style.display = 'flex';
         answerContainer.style.display = 'flex';
         lobbyList.style.display = 'flex';
@@ -1085,6 +1131,9 @@
             member.querySelector('.point-label').style.width = 'auto';
             member.querySelector('.point-label').style.textAlign = 'left';
         });
+
+        const question = document.getElementById('question');
+        question.textContent = "Lobby wird neu gestartet...";
     }
 
     function runWebsocketClose(message) {
@@ -1105,8 +1154,6 @@
         errorMessage.innerHTML = message;
     }
 
-    const slider = document.querySelector("input[type='range']");
-
     function updateSliderFill() {
         const value = slider.value;
         const max = slider.max;
@@ -1114,10 +1161,6 @@
 
         slider.style.setProperty("--slider-value", `${fillHeight}%`);
     }
-
-    updateSliderFill();
-
-    slider.addEventListener("input", updateSliderFill);
 
     function showNotification(message) {
         const notification = document.getElementById('notification-message');
@@ -1135,7 +1178,9 @@
     }
 </script>
 
+<!-- Fundamental -->
 <script>
+    let countdownRequest = null;
     let uuid = localStorage.getItem("uuid");
     let nickname = null;
     let host = false;
@@ -1144,11 +1189,71 @@
         uuid = generateUUID();
         localStorage.setItem("uuid", uuid);
     }
+</script>
+
+<!-- Event listeners -->
+<script>
+    const errorButton = document.querySelector('.error-container button');
+    errorButton.addEventListener('click', function () {
+        window.location.href = '/';
+    });
+
+    // highlight select button on click
+    const answerButtons = document.querySelectorAll('.answer-container .own-answer button');
+    answerButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            socket.send(JSON.stringify({
+                type: 'game.set_answer_self',
+                value: button.dataset.color === "green" ? 1 : 2,
+                uuid: uuid
+            }));
+            answerButtons.forEach(btn => {
+                btn.classList.remove('highlight');
+            });
+            button.classList.add('highlight');
+        });
+    });
+    // highlight select button on click
+    const otherAnswerButtons = document.querySelectorAll('.answer-container .other-answer button');
+    otherAnswerButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            socket.send(JSON.stringify({
+                type: 'game.set_answer_others',
+                value: parseInt(button.innerHTML),
+                uuid: uuid
+            }));
+            otherAnswerButtons.forEach(btn => {
+                btn.classList.remove('highlight');
+            });
+            button.classList.add('highlight');
+        });
+    });
+
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("audioCurrentTime", audioPlayer.currentTime);
+
+        // close websocket connection, when still open
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.close(1000, "User left the page");
+        }
+    });
+</script>
+
+<!-- Initial -->
+<script>
+    const slider = document.querySelector("input[type='range']");
+
+    updateSliderFill();
+
+    slider.addEventListener("input", updateSliderFill);
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     history.replaceState({}, document.title, window.location.pathname);
+</script>
 
+<!-- Socket -->
+<script>
     const socket = new WebSocket(`wss://${window.location.hostname}:433/${code}?uuid=${uuid}`);
     socket.addEventListener('open', function (event) {
         console.log('Connected to server');
@@ -1199,8 +1304,25 @@
                 });
                 break;
             case 'game.leave':
+                console.log(data.nickname + " hat das Spiel verlassen");
                 removeMember(data.nickname);
                 showNotification(data.nickname + " hat das Spiel verlassen");
+                playerCount = document.querySelector('.member-list').querySelectorAll('.member').length;
+                if (playerCount <= 1) {
+                    runWebsocketClose("Es sind nicht genug Spieler im Spiel");
+                }
+                // change other answer buttons
+                document.getElementById('answer-container')
+                .querySelector('.other-answer')
+                .querySelectorAll('button')
+                .forEach((button, index) => {
+                    if (index > data.maxPlayerCount) {
+                        button.style.display = 'none';
+                    } else {
+                        button.style.display = 'flex';
+                    }
+                });
+
                 break;
             case 'game.host_update':
                 host = true;
@@ -1209,6 +1331,7 @@
                 startCountdown(data.timeTillNext);
                 break;
             case 'game.show_question':
+                incrementQuestionCount();
                 clearOutlines();
                 clearHighlights();
                 setAllThinking();
@@ -1243,44 +1366,10 @@
                 console.log('Unknown message type:', data.type);
         }
     });
+</script>
 
-    const errorButton = document.querySelector('.error-container button');
-    errorButton.addEventListener('click', function () {
-        window.location.href = '/';
-    });
-
-    // highlight select button on click
-    const answerButtons = document.querySelectorAll('.answer-container .own-answer button');
-    answerButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            socket.send(JSON.stringify({
-                type: 'game.set_answer_self',
-                value: button.dataset.color === "green" ? 1 : 2,
-                uuid: uuid
-            }));
-            answerButtons.forEach(btn => {
-                btn.classList.remove('highlight');
-            });
-            button.classList.add('highlight');
-        });
-    });
-    // highlight select button on click
-    const otherAnswerButtons = document.querySelectorAll('.answer-container .other-answer button');
-    otherAnswerButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            socket.send(JSON.stringify({
-                type: 'game.set_answer_others',
-                value: parseInt(button.innerHTML),
-                uuid: uuid
-            }));
-            otherAnswerButtons.forEach(btn => {
-                btn.classList.remove('highlight');
-            });
-            button.classList.add('highlight');
-        });
-    });
-
-
+<!-- Audio -->
+<script>
     let audioStarted = false;
     const audioPlayer = document.getElementById("global-audio");
     document.addEventListener("click", () => {
@@ -1310,15 +1399,6 @@
     audioSettings.addEventListener("mouseleave", () => {
         audioSettings.style.height = "50px";
         audioSlider.style.display = "none";
-    });
-
-    window.addEventListener("beforeunload", () => {
-        localStorage.setItem("audioCurrentTime", audioPlayer.currentTime);
-
-        // close websocket connection, when still open
-        if (socket.readyState === WebSocket.OPEN) {
-            socket.close(1000, "User left the page");
-        }
     });
 </script>
 

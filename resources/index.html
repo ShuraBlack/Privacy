@@ -10,7 +10,11 @@
     <meta name="title" content="Privacy Online" />
     <meta name="description" content="Wie gut kennst du deine Freunde?" />
 
-    <!-- Root level Styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Root level -->
     <style>
         :root {
             --background: rgb(17,23,34);
@@ -55,7 +59,7 @@
             align-items: center;
         }
         .container * {
-            font-family: 'Railway', Helvetica, sans-serif;
+            font-family: 'Roboto', Helvetica, sans-serif;
         }
 
         .centered {
@@ -68,6 +72,33 @@
             tranform: translateY(-10%);
         }
 
+        @media (max-width: 768px) {
+            .header img {
+                width: 150px;
+            }
+            .header .title {
+                font-size: 2.0em;
+            }
+            .header .subtitle {
+                font-size: 1.0em;
+            }
+            .create-button {
+                font-size: 1.3em;
+                height: 50px;
+            }
+            .join-container input {
+                font-size: 1.1em;
+                padding: 10px 20px;
+            }
+            .join-container .join-button {
+                font-size: 1.3em;
+                height: 50px;
+            }
+        }
+    </style>
+
+    <!-- Header -->
+    <style>
         .header {
             width: 100%;
             height: 20%;
@@ -113,7 +144,10 @@
             from, to { border-color: transparent }
             50% { border-color: var(--accent); }
         }
+    </style>
 
+    <!-- Interactive -->
+    <style>
         .create-container {
             width: 100%;
             max-width: 250px;
@@ -283,7 +317,10 @@
             fill: var(--accent);
             filter: drop-shadow(0 0 10px var(--accent));
         }
+    </style>
 
+    <!-- Loading (Spinner) -->
+    <style>
         .loading-container {
             display: none;
             justify-content: center;
@@ -388,7 +425,10 @@
               transform: scale(1.2, 1);
             }
         }
+    </style>
 
+    <!-- Audio -->
+    <style>
         .audio-settings {
             display: flex;
             position: absolute;
@@ -440,7 +480,6 @@
             border-radius: 10px;
             outline: none;
             direction: rtl;
-            appearance: slider-vertical;
             vertical-align: bottom;
         }
 
@@ -463,7 +502,7 @@
             border: 2px solid var(--dark-foreground);
             cursor: pointer;
             position: relative;
-            transform: translateX(-3px);
+            transform: translateX(-4.5px);
         }
 
         /* Für Firefox */
@@ -480,7 +519,10 @@
             border-radius: 50%;
             border: 2px solid var(--accent);
         }
+    </style>
 
+    <!-- Footer -->
+    <style>
         .footer {
             position: absolute;
             bottom: 0;
@@ -489,32 +531,9 @@
             color: var(--dark-foreground);
             margin: 20px 0px;
         }
-
-        @media (max-width: 768px) {
-            .header img {
-                width: 150px;
-            }
-            .header .title {
-                font-size: 2.0em;
-            }
-            .header .subtitle {
-                font-size: 1.0em;
-            }
-            .create-button {
-                font-size: 1.3em;
-                height: 50px;
-            }
-            .join-container input {
-                font-size: 1.1em;
-                padding: 10px 20px;
-            }
-            .join-container .join-button {
-                font-size: 1.3em;
-                height: 50px;
-            }
-        }
     </style>
 
+    <!-- Background -->
     <style>
         *{
             margin: 0px;
@@ -669,271 +688,307 @@
     <source src="/media/background-music.mp3" type="audio/mpeg">
     Dein Browser unterstützt dieses Audio-Element nicht.
 </audio>
+
 <body>
-<div class="area" >
-    <ul class="circles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-</div >
-<div class="container">
-    <div class="centered">
-        <div class="header">
-            <img src="/media/logo.png">
-            <label class="title">Privacy - Online</label>
-            <div class="typewriter">
-                <label class="subtitle">Wie gut kennst du deine Freunde?</label>
-            </div>
-        </div>
-
-        <div class="create-container">
-            <div class="create-options" id="options">
-                <div class="checkbox-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                        <path d="M428.3 3c11.6-6.4 26.2-2.3 32.6 9.3l4.8 8.7c19.3 34.7 19.8 75.7 3.4 110C495.8 159.6 512 197.9 512 240c0 18.5-3.1 36.3-8.9 52.8c-6.1 17.3-28.5 16.3-36.8-.1l-11.7-23.4c-4.1-8.1-12.4-13.3-21.5-13.3L360 256c-13.3 0-24-10.7-24-24l0-80c0-13.3-10.7-24-24-24l-17.1 0c-21.3 0-30-23.9-10.8-32.9C304.7 85.4 327.7 80 352 80c28.3 0 54.8 7.3 77.8 20.2c5.5-18.2 3.7-38.4-6-55.8L419 35.7c-6.4-11.6-2.3-26.2 9.3-32.6zM171.2 345.5L264 160l40 0 0 80c0 26.5 21.5 48 48 48l76.2 0 23.9 47.8C372.3 443.9 244.3 512 103.2 512l-58.8 0C19.9 512 0 492.1 0 467.6c0-20.8 14.5-38.8 34.8-43.3l49.8-11.1c37.6-8.4 69.5-33.2 86.7-67.7z"/></svg>
-                    <label class="checkbox-title">Spicy</label>
-                    <input type="checkbox" class="checkbox" id="questions-spicy" checked>
+    <div class="container">
+        <div class="centered">
+            <div class="header">
+                <img src="/media/logo.png">
+                <label class="title">Privacy - Online</label>
+                <div class="typewriter">
+                    <label class="subtitle">Wie gut kennst du deine Freunde?</label>
                 </div>
+            </div>
 
-                <div class="checkbox-container">
+            <div class="create-container">
+                <div class="create-options" id="options">
+                    <div class="checkbox-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M428.3 3c11.6-6.4 26.2-2.3 32.6 9.3l4.8 8.7c19.3 34.7 19.8 75.7 3.4 110C495.8 159.6
+                            512 197.9 512 240c0 18.5-3.1 36.3-8.9 52.8c-6.1 17.3-28.5 16.3-36.8-.1l-11.7-23.4c-4.1-8.1-12.4-13.3-21.5-13.3L360
+                            256c-13.3 0-24-10.7-24-24l0-80c0-13.3-10.7-24-24-24l-17.1 0c-21.3 0-30-23.9-10.8-32.9C304.7 85.4 327.7 80
+                            352 80c28.3 0 54.8 7.3 77.8 20.2c5.5-18.2 3.7-38.4-6-55.8L419 35.7c-6.4-11.6-2.3-26.2 9.3-32.6zM171.2
+                            345.5L264 160l40 0 0 80c0 26.5 21.5 48 48 48l76.2 0 23.9 47.8C372.3 443.9 244.3 512 103.2 512l-58.8
+                            0C19.9 512 0 492.1 0 467.6c0-20.8 14.5-38.8 34.8-43.3l49.8-11.1c37.6-8.4 69.5-33.2 86.7-67.7z"/></svg>
+                        <label class="checkbox-title">Spicy</label>
+                        <input type="checkbox" class="checkbox" id="questions-spicy" checked>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0
+                            498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
+                        <label class="checkbox-title">Normal</label>
+                        <input type="checkbox" class="checkbox" id="questions-regular">
+                    </div>
+                </div>
+                <div class="loading-container" id="loading">
+                    <span class="loader" id="loader"></span>
+                    <label id="response">Erstelle neue lobby</label>
+                </div>
+                <button class="create-button" id="create-room">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
-                    <label class="checkbox-title">Normal</label>
-                    <input type="checkbox" class="checkbox" id="questions-regular">
-                </div>
+                        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32
+                        32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144
+                        0 0-144z"/></svg>
+                    Raum erstellen
+                </button>
             </div>
-            <div class="loading-container" id="loading">
-                <span class="loader" id="loader"></span>
-                <label id="response">Erstelle neue lobby</label>
+
+            <label class="divider">
+                oder
+            </label>
+
+            <div class="join-container">
+                <input type="text" placeholder="Raum Code eingeben" id="code-insert" pattern=".{5,5}" required>
+                <button class="join-button" id="join-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                        <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4
+                        6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32
+                        32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3
+                        32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0
+                        256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+                    Join
+                </button>
             </div>
-            <button class="create-button" id="create-room">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
-                Raum erstellen
-            </button>
         </div>
 
-        <label class="divider">
-            oder
+        <label class="footer">
+            © 2025 Ronny & Julii
         </label>
-
-        <div class="join-container">
-            <input type="text" placeholder="Raum Code eingeben" id="code-insert" pattern=".{5,5}" required>
-            <button class="join-button" id="join-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                    <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
-                Join
-            </button>
-        </div>
     </div>
 
+    <!-- Absolute page content -->
     <div class="audio-settings" id="audio-settings">
         <div class="audio-slide" id="audio-slider">
             <input type="range" min="0" max="100" step="1" value="5">
         </div>
         <svg id="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-            <path d="M301.1 34.8C312.6 40 320 51.4 320 64l0 384c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352 64 352c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l67.8 0L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6 181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z"/></svg>
+            <path d="M301.1 34.8C312.6 40 320 51.4 320 64l0 384c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352 64
+            352c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l67.8 0L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6
+            181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1
+            284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z"/></svg>
     </div>
 
-    <label class="footer">
-        © 2025 Ronny & Julii
-    </label>
-</div>
-</body>
-<script>
-    function generateUUID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
+    <div class="area" >
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
 
-    function disableJoinButton() {
-        const joinButton = document.getElementById("join-button");
-        const codeInput = document.getElementById("code-insert");
-        joinButton.disabled = true;
-        codeInput.disabled = true;
-        joinButton.style.opacity = "0.5";
-        codeInput.style.opacity = "0.5";
-        joinButton.style.pointerEvents = "none";
-        codeInput.style.pointerEvents = "none";
-    }
-
-    function enableJoinButton() {
-        const joinButton = document.getElementById("join-button");
-        const codeInput = document.getElementById("code-insert");
-        joinButton.disabled = false;
-        codeInput.disabled = false;
-        joinButton.style.opacity = "1";
-        codeInput.style.opacity = "1";
-        joinButton.style.pointerEvents = "auto";
-        codeInput.style.pointerEvents = "auto";
-    }
-
-    const slider = document.querySelector("input[type='range']");
-
-    function updateSliderFill() {
-        const value = slider.value;
-        const max = slider.max;
-        const fillHeight = (value / max) * 100;
-
-        slider.style.setProperty("--slider-value", `${fillHeight}%`);
-    }
-
-    updateSliderFill();
-
-    slider.addEventListener("input", updateSliderFill);
-</script>
-
-<script>
-    let uuid = localStorage.getItem("uuid");
-    if (!uuid) {
-        uuid = generateUUID();
-        localStorage.setItem("uuid", uuid);
-    }
-
-    const spicyElement = document.getElementById("questions-spicy");
-    const regularElement = document.getElementById("questions-regular");
-
-    // prevent both checkboxes from being unchecked
-    spicyElement.addEventListener("change", () => {
-        if (!spicyElement.checked && !regularElement.checked) {
-            spicyElement.checked = true;
+    <!-- Functions -->
+    <script>
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
         }
-    });
-    regularElement.addEventListener("change", () => {
-        if (!spicyElement.checked && !regularElement.checked) {
-            regularElement.checked = true;
+
+        function disableJoinButton() {
+            const joinButton = document.getElementById("join-button");
+            const codeInput = document.getElementById("code-insert");
+            joinButton.disabled = true;
+            codeInput.disabled = true;
+            joinButton.style.opacity = "0.5";
+            codeInput.style.opacity = "0.5";
+            joinButton.style.pointerEvents = "none";
+            codeInput.style.pointerEvents = "none";
         }
-    });
 
-    const createButton = document.getElementById("create-room");
-    createButton.addEventListener("click", () => {
-        const options = document.getElementById("options");
-        const spicy = spicyElement.checked;
-        const regular = regularElement.checked;
-        const loading = document.querySelector("#loading");
-        loading.style.display = "flex";
-        createButton.disabled = true;
-        createButton.style.opacity = "0";
-        options.style.opacity = "0";
-        disableJoinButton();
-        setTimeout(() => {
-            createButton.style.display = "none";
-        options.style.display = "none";
-        }, 500);
+        function enableJoinButton() {
+            const joinButton = document.getElementById("join-button");
+            const codeInput = document.getElementById("code-insert");
+            joinButton.disabled = false;
+            codeInput.disabled = false;
+            joinButton.style.opacity = "1";
+            codeInput.style.opacity = "1";
+            joinButton.style.pointerEvents = "auto";
+            codeInput.style.pointerEvents = "auto";
+        }
 
-        const responseLabel = document.getElementById("response");
-        const loader = document.getElementById("loader");
-        fetch("/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                decks : {
-                    spicy: spicy,
-                    regular: regular
-                },
-                uuid: uuid
-            })
-            // turn answer into json
-        }).then(response => {
-            if (response.status === 200) {
-                return response.json();
-            } else {
-                return response.json().then(data => {
-                    throw new Error(data.message);
-                });
+        function updateSliderFill() {
+            const value = slider.value;
+            const max = slider.max;
+            const fillHeight = (value / max) * 100;
+
+            slider.style.setProperty("--slider-value", `${fillHeight}%`);
+        }
+
+        function updateSliderFill() {
+            const value = slider.value;
+            const max = slider.max;
+            const fillHeight = (value / max) * 100;
+
+            slider.style.setProperty("--slider-value", `${fillHeight}%`);
+        }
+    </script>
+
+    <!-- Fundamental -->
+    <script>
+        let uuid = localStorage.getItem("uuid");
+        if (!uuid) {
+            uuid = generateUUID();
+            localStorage.setItem("uuid", uuid);
+        }
+    </script>
+
+    <!-- Event listeners -->
+    <script>
+        const spicyElement = document.getElementById("questions-spicy");
+        spicyElement.addEventListener("change", () => {
+            if (!spicyElement.checked && !regularElement.checked) {
+                spicyElement.checked = true;
             }
-        }).then(data => {
-            if (data.statusCode === 200) {
-                window.location.href = "/lobby?code=" + data.identifier;
-            } else {
+        });
+        const regularElement = document.getElementById("questions-regular");
+        regularElement.addEventListener("change", () => {
+            if (!spicyElement.checked && !regularElement.checked) {
+                regularElement.checked = true;
+            }
+        });
+
+        const createButton = document.getElementById("create-room");
+        createButton.addEventListener("click", () => {
+            const options = document.getElementById("options");
+            const spicy = spicyElement.checked;
+            const regular = regularElement.checked;
+            const loading = document.querySelector("#loading");
+            loading.style.display = "flex";
+            createButton.disabled = true;
+            createButton.style.opacity = "0";
+            options.style.opacity = "0";
+            disableJoinButton();
+            setTimeout(() => {
+                createButton.style.display = "none";
+            options.style.display = "none";
+            }, 500);
+
+            const responseLabel = document.getElementById("response");
+            const loader = document.getElementById("loader");
+            fetch("/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    decks : {
+                        spicy: spicy,
+                        regular: regular
+                    },
+                    uuid: uuid
+                })
+                // turn answer into json
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data.message);
+                    });
+                }
+            }).then(data => {
+                if (data.statusCode === 200) {
+                    window.location.href = "/lobby?code=" + data.identifier;
+                } else {
+                    responseLabel.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+                        Fehler
+                        <span>${data.appendix}</span>
+                    `;
+                    loader.style.display = "none";
+                    enableJoinButton();
+                }
+            }).catch(error => {
                 responseLabel.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
-                    Fehler
-                    <span>${data.appendix}</span>
-                `;
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+                        Fehler
+                        <span>Versuch es zu einem späteren Zeitpunkt nochmal</span>
+                    `;
                 loader.style.display = "none";
                 enableJoinButton();
-            }
-        }).catch(error => {
-            responseLabel.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
-                    Fehler
-                    <span>Versuch es zu einem späteren Zeitpunkt nochmal</span>
-                `;
-            loader.style.display = "none";
-            enableJoinButton();
+            });
         });
-    });
 
-    const joinButton = document.getElementById("join-button");
-    joinButton.addEventListener("click", () => {
-        const code = document.getElementById("code-insert").value;
+        const joinButton = document.getElementById("join-button");
+        joinButton.addEventListener("click", () => {
+            const code = document.getElementById("code-insert").value;
 
-        if (code === "" || code.length !== 5) {
-            return;
-        }
+            if (code === "" || code.length !== 5) {
+                return;
+            }
 
-        document.location.href = "/lobby?code=" + code;
-    });
+            document.location.href = "/lobby?code=" + code;
+        });
 
-    let audioStarted = false;
-    const audioPlayer = document.getElementById("global-audio");
-    document.addEventListener("click", () => {
-        if (audioStarted) {
-            return;
-        }
-        audioPlayer.loop = true;
-        // use storage for volume
-        const volume = localStorage.getItem("audioVolume");
-        if (volume) {
-            audioPlayer.volume = volume / 100;
-        } else {
-            audioPlayer.volume = 0.05;
-        }
-        audioPlayer.currentTime = localStorage.getItem("audioCurrentTime") || 0;
-        audioPlayer.play().catch(error => console.error("Fehler beim Abspielen:", error));
-        audioStarted = true;
-    });
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("audioCurrentTime", audioPlayer.currentTime);
+        });
+    </script>
 
-    slider.addEventListener("input", () => {
-        audioPlayer.volume = slider.value / 100;
-        localStorage.setItem("audioVolume", slider.value);
-    });
-    window.addEventListener("load", () => {
-        const volume = localStorage.getItem("audioVolume");
-        audioPlayer.volume = volume / 100;
-        slider.value = volume;
+    <!-- Initial -->
+    <script>
+        const slider = document.querySelector("input[type='range']");
+
         updateSliderFill();
-    });
 
-    const audioSettings = document.getElementById("audio-settings");
-    const audioSlider = document.getElementById("audio-slider");
-    // show audio slider when enter and hide when leave
-    audioSettings.addEventListener("mouseenter", () => {
-        // grow audioSettings
-        audioSettings.style.height = "220px";
-        audioSlider.style.display = "flex";
-    });
-    audioSettings.addEventListener("mouseleave", () => {
-        audioSettings.style.height = "50px";
-        audioSlider.style.display = "none";
-    });
+        slider.addEventListener("input", updateSliderFill);
+    </script>
 
-    window.addEventListener("beforeunload", () => {
-        localStorage.setItem("audioCurrentTime", audioPlayer.currentTime);
-    });
-</script>
+    <!-- Audio -->
+    <script>
+        let audioStarted = false;
+           const audioPlayer = document.getElementById("global-audio");
+           document.addEventListener("click", () => {
+               if (audioStarted) {
+                   return;
+               }
+               audioPlayer.loop = true;
+               // use storage for volume
+               const volume = localStorage.getItem("audioVolume");
+               if (volume) {
+                   audioPlayer.volume = volume / 100;
+               } else {
+                   audioPlayer.volume = 0.05;
+               }
+               audioPlayer.currentTime = localStorage.getItem("audioCurrentTime") || 0;
+               audioPlayer.play().catch(error => console.error("Fehler beim Abspielen:", error));
+               audioStarted = true;
+           });
+
+           slider.addEventListener("input", () => {
+               audioPlayer.volume = slider.value / 100;
+               localStorage.setItem("audioVolume", slider.value);
+           });
+           window.addEventListener("load", () => {
+               const volume = localStorage.getItem("audioVolume");
+               audioPlayer.volume = volume / 100;
+               slider.value = volume;
+               updateSliderFill();
+           });
+
+           const audioSettings = document.getElementById("audio-settings");
+           const audioSlider = document.getElementById("audio-slider");
+           // show audio slider when enter and hide when leave
+           audioSettings.addEventListener("mouseenter", () => {
+               // grow audioSettings
+               audioSettings.style.height = "220px";
+               audioSlider.style.display = "flex";
+           });
+           audioSettings.addEventListener("mouseleave", () => {
+               audioSettings.style.height = "50px";
+               audioSlider.style.display = "none";
+           });
+    </script>
+</body>
 </html>

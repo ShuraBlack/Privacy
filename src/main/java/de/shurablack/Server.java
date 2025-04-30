@@ -8,7 +8,6 @@ import de.shurablack.handler.MediaHandler;
 import de.shurablack.handler.StaticPageHandler;
 import de.shurablack.http.Page;
 import de.shurablack.http.PageStore;
-import de.shurablack.util.GlobalTimer;
 import de.shurablack.websocket.LobbyWebSocket;
 import it.sauronsoftware.cron4j.Scheduler;
 import org.apache.logging.log4j.LogManager;
