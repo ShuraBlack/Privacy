@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Written by ShuraBlack https://github.com/ShuraBlack-->
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Privacy Online</title>
+    <link rel="icon" type="image/png" href="/media/favicon.png">
+    <meta name="title" content="Privacy Online" />
+    <meta name="description" content="Wie gut kennst du deine Freunde?" />
+
+    <!-- Root level Styling -->
+    <style>
+        :root {
+            --background: rgb(17,23,34);
+            --primary: rgb(28,37,49);
+            --select: rgb(55,65,81);
+            --light-primary: rgb(34,44,58);
+            --secondary: rgb(34,36,41);
+            --light-secondary: rgb(88,88,90);
+            --foreground: rgb(255,255,255);
+            --dark-foreground: rgb(156,163,175);
+            --darkest-foreground: rgb(46,53,65);
+            --accent: rgb(23, 130, 197);
+            --red: rgb(248,113,113);
+            --vibrant-red: rgb(239,68,68);
+            --dark-red: rgb(50,45,56);
+            --green: rgb(21,128,61);
+
+            --standard: rgb(209,213,219);
+            --refined: rgb(74,114,206);
+            --premium: rgb(31,214,11);
+            --epic: rgb(192,57,43);
+            --legendary: rgb(247,189,30);
+            --mystic: rgb(242,135,0);
+
+            --frosty: rgb(103, 226, 235);
+            --spring: rgb(255, 182, 193);
+        }
+        body {
+            background-color: var(--background);
+
+            -webkit-user-select: none;  /* Chrome, Safari, Opera */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE/Edge */
+            user-select: none;          /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .container * {
+            font-family: 'Railway', Helvetica, sans-serif;
+        }
+
+        .allowed-select {
+            -webkit-user-select: text;  /* Chrome, Safari, Opera */
+            -moz-user-select: text;     /* Firefox */
+            -ms-user-select: text;      /* IE/Edge */
+            user-select: text;          /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+        }
+
+        .disabled {
+            opacity: 0.4 !important;
+        }
+
+        .highlight[data-color="red"] {
+            outline: 1px solid rgb(255, 59, 109) !important;
+            color: rgb(255, 59, 109) !important;
+            box-shadow: 0 0 10px rgb(255, 59, 109) !important;
+        }
+        .highlight[data-color="green"] {
+            outline: 1px solid rgb(102, 255, 120) !important;
+            color: rgb(102, 255, 120) !important;
+            box-shadow: 0 0 10px rgb(102, 255, 120) !important;
+        }
+        .highlight[data-color="blue"] {
+            outline: 1px solid var(--accent) !important;
+            color: var(--accent) !important;
+            box-shadow: 0 0 10px var(--accent) !important;
+        }
+
+        .green-outline {
+            outline: 1px solid rgb(102, 255, 120) !important;
+        }
+
+        .red-outline {
+            outline: 1px solid rgb(255, 59, 109) !important;
+        }
+
+        .blue-outline {
+            outline: 1px solid var(--accent) !important;
+        }
+
+        .yellow-outline {
+            outline: 1px solid rgb(254, 188, 98) !important;
+        }
+
+        .no-input {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .centered {
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            tranform: translateY(-10%);
+        }
+
+        .header {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .header img {
+            width: 75px;
+            height: auto;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+        }
+        .header .title {
+            font-size: 2.3em;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+        .header .subtitle {
+            display: flex;
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+        }
+
+        .error-container {
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-container .error-title {
+            font-size: 5em;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .error-container .error-subtitle {
+            font-size: 2em;
+            font-weight: 400;
+            text-align: center;
+            color: var(--dark-foreground);
+        }
+        .error-container button {
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            max-width: 300px;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .error-container button:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .error-message {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: rgb(255, 59, 109);
+            text-align: center;
+            width: 80%;
+        }
+
+        .audio-settings {
+            display: flex;
+            position: absolute;
+            overflow: hidden;
+            bottom: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            background-color: var(--primary);
+            padding: 10px;
+            border-radius: 5px;
+            transition: height 0.3s ease;
+        }
+
+        .audio-slide {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            height: auto;
+        }
+        .audio-settings svg {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            min-height: 30px;
+            fill: var(--dark-foreground);
+            transition: 0.3s ease;
+        }
+        .audio-settings:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            writing-mode: vertical-lr;
+            width: 16px;
+            height: 150px;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 10px;
+            outline: none;
+            direction: rtl;
+            appearance: slider-vertical;
+            vertical-align: bottom;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to top, var(--accent) 0%, var(--accent) var(--slider-value), var(--background) var(--slider-value), var(--background) 100%);
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.6));
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent); /* Hier kannst du die Farbe ändern */
+            border-radius: 50%;
+            border: 2px solid var(--dark-foreground);
+            cursor: pointer;
+            position: relative;
+            transform: translateX(-3px);
+        }
+
+        /* Für Firefox */
+        input[type="range"]::-moz-range-track {
+            background: var(--accent);
+            width: 10px;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--dark-foreground);
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+        }
+
+        .overlay-notification {
+            display: none;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--primary);
+            padding: 10px;
+            border-radius: 5px;
+            transition: height 0.3s ease;
+        }
+        .overlay-notification label {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: var(--foreground);
+            gap: 10px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay-notification svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+            animation: wiggle 2s infinite;
+        }
+        @keyframes wiggle {
+            0% {
+                transform: rotate(0deg);
+            }
+            12% {
+                transform: rotate(10deg);
+            }
+            18% {
+                transform: rotate(-10deg);
+            }
+            30% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 600px;
+            height: 20px;
+            max-height: 20px;
+            margin: 10px 0px;
+            display: grid;
+            grid-template-columns: 95% 5%;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .progress-container label {
+            font-size: 1.5em;
+            font-weight: 400;
+            color: var(--foreground);
+            text-align: center;
+            width: 100%;
+        }
+        .progress-bar {
+            height: 50%;
+            background-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: width 0.1s ease;
+        }
+
+        .question-container {
+            width: 100%;
+            margin: 10px 0px;
+            padding: 5px 10px;
+            max-width: 600px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            border-radius: 5px;
+            outline: 1px solid var(--primary);
+            backdrop-filter: blur(5px);
+        }
+        .question-container .question-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--darkest-foreground);
+            text-align: left;
+        }
+        .question-container label {
+            font-size: 1.5em;
+            font-weight: 400;
+            color: var(--foreground);
+            text-align: center;
+            width: 100%;
+        }
+        .question-container .question-subtext {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: var(--accent);
+            text-align: center;
+            width: 100%;
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        .question-container button {
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            max-width: 300px;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .question-container button:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .answer-container {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            padding: 10px 10px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            border-radius: 5px;
+            outline: 1px solid var(--primary);
+            backdrop-filter: blur(5px);
+        }
+        .answer-container .own-answer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .answer-container .own-answer button {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .answer-container .own-answer button:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .answer-container .own-answer button[data-color="green"]:hover {
+            color: rgb(102, 255, 120);
+            outline: 1px solid rgb(102, 255, 120);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .answer-container .own-answer button[data-color="red"]:hover {
+            color: rgb(255, 59, 109);
+            outline: 1px solid rgb(255, 59, 109);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .answer-container .other-answer {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 10px;
+            align-items: center;
+        }
+        .answer-container .other-answer button {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            width: auto;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .answer-container .other-answer button:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        @media (max-width: 525px) {
+            .answer-container .other-answer {
+                justify-content: flex-start;
+            }
+        }
+
+        .member-list {
+            width: 100%;
+            padding: 10px 10px;
+            max-width: 600px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-radius: 5px;
+            outline: 1px solid var(--primary);
+            backdrop-filter: blur(5px);
+        }
+
+        .member-list .member {
+            width: calc(50% - 25px);
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: var(--primary);
+        }
+        .member-list .member label {
+            font-size: 1.2em;
+            font-weight: 200;
+            color: var(--foreground);
+            width: 100%;
+        }
+        .member-list .member .points {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+        .member-list .member .points .point-label {
+            font-size: 1.2em;
+            font-weight: 200;
+            color: var(--dark-foreground);
+        }
+        .member-list .member .points svg {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            min-height: 20px;
+            fill: var(--background);
+        }
+
+        .restart {
+            display: none;
+            justify-content: center;
+            width: 90%;
+            max-width: 300px;
+            margin-top: 20px;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .restart svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: var(--foreground);
+            transition: 0.3s ease;
+        }
+        .restart:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .restart:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        .restart-message {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 1.5em;
+            font-weight: 400;
+            color: var(--dark-foreground);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+            margin: 20px 0px;
+        }
+    </style>
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .area{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background: -webkit-linear-gradient(to left, var(--background), var(--accent));
+            background: var(--background);
+            width: 100%;
+            height:100vh;
+        }
+
+        .circles{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .circles li{
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 25%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: animate 20s linear infinite;
+            bottom: -150px;
+        }
+
+        .circles li:nth-child(1){
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+            background: rgb(255, 59, 109, 0.1);
+        }
+
+        .circles li:nth-child(2){
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+            background: rgb(5, 142, 210, 0.1);
+        }
+
+        .circles li:nth-child(3){
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+            background: rgb(17, 207, 191, 0.1);
+        }
+
+        .circles li:nth-child(4){
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+            background: rgb(255, 139, 29, 0.1);
+        }
+
+        .circles li:nth-child(5){
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+            background: rgb(138, 16, 86, 0.1);
+        }
+
+        .circles li:nth-child(6){
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+            background: rgb(41, 91, 131, 0.1);
+        }
+
+        .circles li:nth-child(7){
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+            background: rgb(255, 145, 102, 0.1);
+        }
+
+        .circles li:nth-child(8){
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+            background: rgb(254, 43, 100, 0.1);
+        }
+
+        .circles li:nth-child(9){
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+            background: rgb(255, 189, 101, 0.1);
+        }
+
+        .circles li:nth-child(10){
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+            background: rgb(255, 102, 128, 0.1);
+        }
+
+        @keyframes animate {
+            0%{
+                transform: translateY(0) rotate(0deg);
+                scale: 1;
+                filter: blur(0px);
+                opacity: 1;
+            }
+
+            50%{
+                filter: blur(0px);
+            }
+
+            100%{
+                transform: translateY(-1000px) rotate(720deg);
+                scale: 1.5;
+                filter: blur(20px);
+                opacity: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<audio id="global-audio">
+    <source src="/media/background-music.mp3" type="audio/mpeg">
+    Dein Browser unterstützt dieses Audio-Element nicht.
+</audio>
+<body>
+<div class="area" >
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div >
+<div class="container" id="container">
+    <div class="centered">
+        <div class="header">
+            <img src="/media/logo.png">
+            <div class="header-text">
+                <label class="title">Privacy - Online</label>
+                <label class="subtitle">Wie gut kennst du deine Freunde?</label>
+            </div>
+        </div>
+
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <label id="countdown">0</label>
+        </div>
+
+        <div class="question-container" id="question-container">
+            <label class="question-title">Frage</label>
+            <label id="question">Warte auf andere Spieler...</label>
+            <label class="question-subtext" id="global-answer"></label>
+        </div>
+
+        <div class="answer-container no-input" id="answer-container">
+            <div class="own-answer">
+                <button data-color="green">Ja</button>
+                <button data-color="red">Nein</button>
+            </div>
+
+            <div class="other-answer">
+                <button data-color="blue">0</button>
+                <button data-color="blue">1</button>
+                <button data-color="blue">2</button>
+                <button data-color="blue">3</button>
+                <button data-color="blue">4</button>
+                <button data-color="blue">5</button>
+                <button data-color="blue">6</button>
+                <button data-color="blue">7</button>
+                <button data-color="blue">8</button>
+                <button data-color="blue">9</button>
+                <button data-color="blue">10</button>
+            </div>
+        </div>
+
+        <div class="member-list" id="member-list">
+
+        </div>
+
+        <button class="restart" id="restart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
+            Restart
+        </button>
+        <label class="restart-message" id="restart-message">
+            Warte auf Host...
+        </label>
+
+        <div class="error-container" id="error-container">
+            <label class="error-title">Uppsi</label>
+            <label class="error-subtitle">Es gab ein Problem bei der Verbindung</label>
+            <label class="error-message" id="error-message"></label>
+            <button>Zurück zur Startseite</button>
+        </div>
+    </div>
+
+    <div class="audio-settings" id="audio-settings">
+        <div class="audio-slide" id="audio-slider">
+            <input type="range" min="0" max="100" step="1" value="5">
+        </div>
+        <svg id="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path d="M301.1 34.8C312.6 40 320 51.4 320 64l0 384c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352 64 352c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l67.8 0L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6 181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z"/></svg>
+    </div>
+
+    <div class="overlay-notification">
+        <label id="notification-message">
+        </label>
+    </div>
+
+    <label class="footer">
+        © 2025 Ronny & Julii
+    </label>
+</div>
+</body>
+
+<script>
+    let countdownRequest = null;
+
+    function startCountdown(targetTime) {
+        const startTime = Date.now();
+
+        if (countdownRequest) {
+            cancelAnimationFrame(countdownRequest);
+            countdownRequest = null;
+        }
+
+        function updateCountdown() {
+            const now = Date.now();
+            const remainingTime = targetTime - now;
+
+            if (remainingTime <= 0) {
+                document.getElementById("countdown").textContent = "";
+                document.getElementById("progress-bar").style.width = "0%";
+                return;
+            }
+
+            const totalDuration = targetTime - startTime;
+            const progressPercent = (remainingTime / totalDuration) * 100;
+
+            document.getElementById("countdown").textContent = Math.floor((remainingTime / 1000) % 60);
+            document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
+            // Speichert die Request-ID, damit sie gestoppt werden kann
+            countdownRequest = requestAnimationFrame(updateCountdown);
+        }
+
+        countdownRequest = requestAnimationFrame(updateCountdown);
+    }
+
+    function timePlusSeconds(seconds) {
+        return Date.now() + 1000 * seconds;
+    }
+</script>
+
+<script>
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function unescapeCSS(escapedString) {
+        return escapedString.replace(/\\([0-9A-Fa-f]{1,6} ?)|\\(.)/g, (match, hex, char) => {
+            return hex ? String.fromCodePoint(parseInt(hex.trim(), 16)) : char;
+        });
+    }
+
+
+    function addMember(name) {
+        const memberList = document.querySelector('.member-list');
+        const member = document.createElement('div');
+        const encodedNickname = CSS.escape(name);
+        member.id = encodedNickname;
+        member.classList.add('member');
+        member.innerHTML = `
+            <label>${name}</label>
+            <div class="points">
+                <label class="point-label">0</label>
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" viewBox="0 0 512 512">
+                    <path d="M 64 64 Q 65 37 83 19 L 83 19 L 83 19 Q 101 1 128 0 L 384 0 L 384 0 Q 411 1 429 19 Q 447 37 448 64 L 448 448 L 448 448 Q 447 475 429 493 Q 411 511 384 512 L 128 512 L 128 512 Q 101 511 83 493 Q 65 475 64 448 L 64 64 L 64 64 Z M245,149 L149,245 L245,149 L149,245 Q139,256,149,267 L245,363 L245,363 Q256,373,267,363 L363,267 L363,267 Q373,256,363,245 L267,149 L267,149 Q256,139,245,149 Z"/>
+                </svg>
+            </div>
+        `;
+        memberList.appendChild(member);
+    }
+
+    function removeMember(memberId) {
+        const encodedNickname = CSS.escape(name);
+        const member = document.getElementById(encodedNickname);
+        if (member) {
+            member.remove();
+        }
+    }
+
+    function setAllThinking() {
+        const memberList = document.querySelector('.member-list');
+        const members = memberList.querySelectorAll('.member');
+        members.forEach(member => {
+            member.classList.add('yellow-outline');
+        });
+    }
+
+    function clearOutlines() {
+        const memberList = document.querySelector('.member-list');
+        const members = memberList.querySelectorAll('.member');
+        members.forEach(member => {
+            member.classList.remove('yellow-outline');
+            member.classList.remove('green-outline');
+            member.classList.remove('red-outline');
+            member.classList.remove('blue-outline');
+        });
+    }
+
+    function clearHighlights() {
+        // from own and other answers
+        const ownAnswers = document.querySelectorAll('.own-answer button');
+        const otherAnswers = document.querySelectorAll('.other-answer button');
+        ownAnswers.forEach(button => {
+            button.classList.remove('highlight');
+        });
+        otherAnswers.forEach(button => {
+            button.classList.remove('highlight');
+        });
+    }
+
+    function setCorrectMembers(members) {
+        const memberList = document.querySelector('.member-list');
+        const memberElements = memberList.querySelectorAll('.member');
+        memberElements.forEach(member => {
+            member.classList.remove('yellow-outline');
+            const decodedNickname = unescapeCSS(member.id);
+            if (members.includes(decodedNickname)) {
+                member.classList.add('green-outline');
+                const pointLabel = member.querySelector('.point-label');
+                const points = parseInt(pointLabel.textContent) + 1;
+                pointLabel.textContent = points;
+            } else {
+                member.classList.add('red-outline');
+            }
+        });
+    }
+
+    function showResult() {
+        // if host, show restart button and set event
+        if (host) {
+            const restartButton = document.getElementById('restart');
+            restartButton.style.display = 'flex';
+            restartButton.addEventListener('click', function () {
+                socket.send(JSON.stringify({
+                    type: 'game.restart',
+                    uuid: uuid
+                }));
+            });
+        } else {
+            const restartMessage = document.getElementById('restart-message');
+            restartMessage.style.display = 'flex';
+        }
+
+        const progressContainer = document.getElementById('progress-container');
+        const questionContainer = document.getElementById('question-container');
+        const answerContainer = document.getElementById('answer-container');
+        progressContainer.style.display = 'none';
+        questionContainer.style.display = 'none';
+        answerContainer.style.display = 'none';
+
+        // Give member entries full with and sort them by point-label
+        const lobbyList = document.getElementById('member-list');
+        const members = lobbyList.querySelectorAll('.member');
+        clearOutlines();
+        members.forEach(member => {
+            member.style.width = 'calc(100% - 20px)';
+            const pointLabel = member.querySelector('.point-label');
+            if (parseInt(pointLabel.textContent) >= 10) {
+                member.classList.add('green-outline');
+            }
+            pointLabel.style.width = '100%';
+            pointLabel.style.textAlign = 'center';
+        });
+        const sortedMembers = Array.from(members).sort((a, b) => {
+            const aPoints = parseInt(a.querySelector('.point-label').textContent);
+            const bPoints = parseInt(b.querySelector('.point-label').textContent);
+            return bPoints - aPoints;
+        });
+        sortedMembers.forEach(member => {
+            lobbyList.appendChild(member);
+        });
+    }
+
+    function resetAll() {
+        const progressContainer = document.getElementById('progress-container');
+        const questionContainer = document.getElementById('question-container');
+        const answerContainer = document.getElementById('answer-container');
+        const lobbyList = document.getElementById('member-list');
+        const errorContainer = document.getElementById('error-container');
+        const errorMessage = document.getElementById('error-message');
+        const restartButton = document.getElementById('restart');
+        const restartMessage = document.getElementById('restart-message');
+
+        progressContainer.style.display = 'flex';
+        questionContainer.style.display = 'flex';
+        answerContainer.style.display = 'flex';
+        lobbyList.style.display = 'flex';
+        errorContainer.style.display = 'none';
+        restartButton.style.display = 'none';
+        restartMessage.style.display = 'none';
+
+        // Reset all members
+        const members = lobbyList.querySelectorAll('.member');
+        members.forEach(member => {
+            member.classList.remove('yellow-outline');
+            member.classList.remove('green-outline');
+            member.classList.remove('red-outline');
+            member.classList.remove('blue-outline');
+            member.querySelector('.point-label').textContent = 0;
+            member.style.width = 'calc(50% - 25px)';
+            member.querySelector('.point-label').style.width = 'auto';
+            member.querySelector('.point-label').style.textAlign = 'left';
+        });
+    }
+
+    function runWebsocketClose(message) {
+        console.log('WebSocket closed:', message);
+        const progressContainer = document.getElementById('progress-container');
+        const questionContainer = document.getElementById('question-container');
+        const answerContainer = document.getElementById('answer-container');
+        const lobbyList = document.getElementById('member-list');
+        const errorContainer = document.getElementById('error-container');
+        const errorMessage = document.getElementById('error-message');
+
+        progressContainer.style.display = 'none';
+        questionContainer.style.display = 'none';
+        answerContainer.style.display = 'none';
+        lobbyList.style.display = 'none';
+
+        errorContainer.style.display = 'flex';
+        errorMessage.innerHTML = message;
+    }
+
+    const slider = document.querySelector("input[type='range']");
+
+    function updateSliderFill() {
+        const value = slider.value;
+        const max = slider.max;
+        const fillHeight = (value / max) * 100;
+
+        slider.style.setProperty("--slider-value", `${fillHeight}%`);
+    }
+
+    updateSliderFill();
+
+    slider.addEventListener("input", updateSliderFill);
+
+    function showNotification(message) {
+        const notification = document.getElementById('notification-message');
+        notification.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+        <path d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>` + message;
+        const overlayNotification = document.querySelector('.overlay-notification');
+        overlayNotification.style.display = 'flex';
+        overlayNotification.style.animation = 'fadeIn 0.5s forwards';
+        setTimeout(() => {
+            overlayNotification.style.animation = 'fadeOut 0.5s forwards';
+            setTimeout(() => {
+                overlayNotification.style.display = 'none';
+            }, 500);
+        }, 4000);
+    }
+</script>
+
+<script>
+    let uuid = localStorage.getItem("uuid");
+    let nickname = null;
+    let host = false;
+    let playerCount = 0;
+    if (!uuid) {
+        uuid = generateUUID();
+        localStorage.setItem("uuid", uuid);
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    history.replaceState({}, document.title, window.location.pathname);
+
+    const socket = new WebSocket(`wss://${window.location.hostname}:433/${code}?uuid=${uuid}`);
+    socket.addEventListener('open', function (event) {
+        console.log('Connected to server');
+    });
+
+    socket.addEventListener('close', function (event) {
+        if (event.code === 1003) {
+            runWebsocketClose(event.reason)
+        }
+    });
+
+    socket.addEventListener('message', function (event) {
+        const data = JSON.parse(event.data);
+        switch (data.type) {
+            case 'game.valid':
+                socket.send(JSON.stringify({
+                    type: 'game.get_members',
+                    uuid: uuid
+                }));
+                break;
+            case 'game.members':
+                startCountdown(data.timeTillNext);
+                addMember(data.nickname);
+                host = data.isHost;
+                for (let i = 0; i < data.members.length; i++) {
+                    const member = data.members[i];
+                    addMember(member);
+                }
+                break;
+            case 'game.members_clean':
+                startCountdown(data.timeTillNext);
+                playerCount = data.maxPlayerCount;
+                for (let i = 0; i < data.members.length; i++) {
+                    const member = data.members[i];
+                    removeMember(member);
+                }
+                document.querySelector('#question').innerHTML = "Alle bereit?";
+
+                document.getElementById('answer-container')
+                .querySelector('.other-answer')
+                .querySelectorAll('button')
+                .forEach((button, index) => {
+                    if (index > data.maxPlayerCount) {
+                        button.style.display = 'none';
+                    } else {
+                        button.style.display = 'flex';
+                    }
+                });
+                break;
+            case 'game.leave':
+                removeMember(data.nickname);
+                showNotification(data.nickname + " hat das Spiel verlassen");
+                break;
+            case 'game.host_update':
+                host = true;
+                break;
+            case 'game.time_left':
+                startCountdown(data.timeTillNext);
+                break;
+            case 'game.show_question':
+                clearOutlines();
+                clearHighlights();
+                setAllThinking();
+                document.querySelector('#question').innerHTML = data.question;
+
+                document.querySelector('#global-answer').innerHTML = "";
+
+                startCountdown(data.timeTillNext);
+
+                document.getElementById('answer-container').classList.remove('no-input');
+                break;
+            case 'game.all_answered':
+                if (document.querySelector('#' + CSS.escape(data.nickname)) === null) {
+                    break;
+                }
+                document.querySelector('#' + CSS.escape(data.nickname)).classList.remove('yellow-outline');
+                break;
+            case 'game.show_answers':
+                document.querySelector('#global-answer').innerHTML = data.answerSum + " von " + playerCount + " antworten mit ja";
+                document.getElementById('answer-container').classList.add('no-input');
+                clearOutlines();
+                setCorrectMembers(data.members);
+                startCountdown(data.timeTillNext);
+                break;
+            case 'game.end':
+                showResult();
+                break;
+            case 'game.restart':
+                resetAll();
+                break;
+            default:
+                console.log('Unknown message type:', data.type);
+        }
+    });
+
+    const errorButton = document.querySelector('.error-container button');
+    errorButton.addEventListener('click', function () {
+        window.location.href = '/';
+    });
+
+    // highlight select button on click
+    const answerButtons = document.querySelectorAll('.answer-container .own-answer button');
+    answerButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            socket.send(JSON.stringify({
+                type: 'game.set_answer_self',
+                value: button.dataset.color === "green" ? 1 : 2,
+                uuid: uuid
+            }));
+            answerButtons.forEach(btn => {
+                btn.classList.remove('highlight');
+            });
+            button.classList.add('highlight');
+        });
+    });
+    // highlight select button on click
+    const otherAnswerButtons = document.querySelectorAll('.answer-container .other-answer button');
+    otherAnswerButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            socket.send(JSON.stringify({
+                type: 'game.set_answer_others',
+                value: parseInt(button.innerHTML),
+                uuid: uuid
+            }));
+            otherAnswerButtons.forEach(btn => {
+                btn.classList.remove('highlight');
+            });
+            button.classList.add('highlight');
+        });
+    });
+
+
+    let audioStarted = false;
+    const audioPlayer = document.getElementById("global-audio");
+    document.addEventListener("click", () => {
+        if (audioStarted) {
+            return;
+        }
+        audioPlayer.loop = true;
+        const volume = localStorage.getItem("audioVolume") || 5;
+        audioPlayer.volume = volume / 100;
+        audioPlayer.currentTime = localStorage.getItem("audioCurrentTime") || 0;
+        audioPlayer.play().catch(error => console.error("Fehler beim Abspielen:", error));
+        audioStarted = true;
+    });
+    slider.addEventListener("input", () => {
+        audioPlayer.volume = slider.value / 100;
+        localStorage.setItem("audioVolume", slider.value);
+    });
+
+    const audioSettings = document.getElementById("audio-settings");
+    const audioSlider = document.getElementById("audio-slider");
+    // show audio slider when enter and hide when leave
+    audioSettings.addEventListener("mouseenter", () => {
+        // grow audioSettings
+        audioSettings.style.height = "220px";
+        audioSlider.style.display = "flex";
+    });
+    audioSettings.addEventListener("mouseleave", () => {
+        audioSettings.style.height = "50px";
+        audioSlider.style.display = "none";
+    });
+
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("audioCurrentTime", audioPlayer.currentTime);
+
+        // close websocket connection, when still open
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.close(1000, "User left the page");
+        }
+    });
+</script>
+
+</html>

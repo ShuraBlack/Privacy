@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Written by ShuraBlack https://github.com/ShuraBlack-->
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Privacy Online</title>
+    <link rel="icon" type="image/png" href="/media/favicon.png">
+    <meta name="title" content="Privacy Online" />
+    <meta name="description" content="Wie gut kennst du deine Freunde?" />
+
+    <!-- Root level Styling -->
+    <style>
+        :root {
+            --background: rgb(17,23,34);
+            --primary: rgb(28,37,49);
+            --select: rgb(55,65,81);
+            --light-primary: rgb(34,44,58);
+            --secondary: rgb(34,36,41);
+            --light-secondary: rgb(88,88,90);
+            --foreground: rgb(255,255,255);
+            --dark-foreground: rgb(156,163,175);
+            --darkest-foreground: rgb(46,53,65);
+            --accent: rgb(23, 130, 197);
+            --red: rgb(248,113,113);
+            --vibrant-red: rgb(239,68,68);
+            --dark-red: rgb(50,45,56);
+            --green: rgb(21,128,61);
+
+            --standard: rgb(209,213,219);
+            --refined: rgb(74,114,206);
+            --premium: rgb(31,214,11);
+            --epic: rgb(192,57,43);
+            --legendary: rgb(247,189,30);
+            --mystic: rgb(242,135,0);
+
+            --frosty: rgb(103, 226, 235);
+            --spring: rgb(255, 182, 193);
+        }
+        body {
+            background-color: var(--background);
+
+            -webkit-user-select: none;  /* Chrome, Safari, Opera */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE/Edge */
+            user-select: none;          /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .container * {
+            font-family: 'Railway', Helvetica, sans-serif;
+        }
+
+        .centered {
+            width: 100%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            tranform: translateY(-10%);
+        }
+
+        .header {
+            width: 100%;
+            height: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        .header img {
+            width: 200px;
+            height: auto;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+        }
+        .header .title {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+        .header .subtitle {
+            display: flex;
+            font-size: 1.2em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+        }
+        .typewriter .subtitle {
+            overflow: hidden;
+            border-right: .15em solid var(--accent);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation:
+                typing 2.0s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        /* The typing effect */
+        @keyframes typing {
+            from { width: 0% }
+            to { width: 100% }
+        }
+        /* The typewriter cursor effect */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent); }
+        }
+
+        .create-container {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0px 0px 0px;
+            flex-direction: column;
+        }
+        .create-button {
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .create-button svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: var(--foreground);
+            transition: 0.3s ease;
+        }
+        .create-button:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .create-button:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+
+        .divider {
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--select);
+            margin: 20px 0px;
+        }
+
+        .create-options {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+            outline: 1px solid var(--primary);
+            padding: 10px;
+            border-radius: 5px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s ease;
+        }
+        .checkbox-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 10px;
+        }
+        .checkbox {
+            width: 20px;
+            min-width: 20px;
+            height: 20px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: var(--primary);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+            transition: 0.3s ease;
+        }
+        .checkbox:checked {
+            background-color: var(--accent);
+        }
+        .checkbox:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .checkbox-title {
+            font-size: 1.2em;
+            color: var(--foreground);
+        }
+        .checkbox-container svg {
+            width: 20px;
+            max-width: 20px;
+            height: 20px;
+            max-height: 20px;
+            fill: var(--darkest-foreground);
+        }
+
+        .join-container {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            gap: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .join-container input {
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.0em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .container input:invalid {
+            outline: 1px solid rgb(255, 59, 109, 0.6) !important;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .join-container input:focus {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .join-container input::placeholder {
+            color: var(--select);
+        }
+
+        .join-container .join-button {
+            display: flex;
+            width: 90%;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .join-container .join-button svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: var(--foreground);
+            transition: 0.3s ease;
+        }
+        .join-container .join-button:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .join-container .join-button:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+
+        .loading-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            height: auto;
+        }
+        .loading-container label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+        }
+        .loading-container label span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 0.8em;
+            text-align: center;
+            font-weight: 100;
+            color: rgb(255, 59, 109);
+        }
+        .loading-container svg {
+            width: 20px;
+            height: 20px;
+            fill: rgb(255, 59, 109);
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            margin: auto;
+            position: relative;
+            transform: translateY(-10px);
+        }
+        .loader:before {
+            content: '';
+            width: 48px;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0.25;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            border-radius: 50%;
+            animation: shadow 0.5s linear infinite;
+          }
+        .loader:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            animation: bxSpin 0.5s linear infinite, colorChange 5s linear infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 4px;
+        }
+        @keyframes bxSpin {
+            17% {
+              border-bottom-right-radius: 3px;
+            }
+            25% {
+              transform: translateY(9px) rotate(22.5deg);
+            }
+            50% {
+              transform: translateY(18px) scale(1, .9) rotate(45deg);
+              border-bottom-right-radius: 40px;
+            }
+            75% {
+              transform: translateY(9px) rotate(67.5deg);
+            }
+            100% {
+              transform: translateY(0) rotate(90deg);
+            }
+        }
+        @keyframes colorChange {
+            0% {
+              background: rgb(255, 59, 109);
+            }
+            25% {
+              background: rgb(5, 142, 210);
+            }
+            75% {
+              background: rgb(17, 207, 191);
+            }
+            100% {
+              background: rgb(255, 59, 109);
+            }
+        }
+
+        @keyframes shadow {
+            0%, 100% {
+              transform: scale(1, 1);
+            }
+            50% {
+              transform: scale(1.2, 1);
+            }
+        }
+
+        .audio-settings {
+            display: flex;
+            position: absolute;
+            overflow: hidden;
+            bottom: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            background-color: var(--primary);
+            padding: 10px;
+            border-radius: 5px;
+            transition: height 0.3s ease;
+        }
+
+        .audio-slide {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            height: auto;
+        }
+        .audio-settings svg {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            min-height: 30px;
+            fill: var(--dark-foreground);
+            transition: 0.3s ease;
+        }
+        .audio-settings:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            writing-mode: vertical-lr;
+            width: 16px;
+            height: 150px;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 10px;
+            outline: none;
+            direction: rtl;
+            appearance: slider-vertical;
+            vertical-align: bottom;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to top, var(--accent) 0%, var(--accent) var(--slider-value), var(--background) var(--slider-value), var(--background) 100%);
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.6));
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent); /* Hier kannst du die Farbe ändern */
+            border-radius: 50%;
+            border: 2px solid var(--dark-foreground);
+            cursor: pointer;
+            position: relative;
+            transform: translateX(-3px);
+        }
+
+        /* Für Firefox */
+        input[type="range"]::-moz-range-track {
+            background: var(--accent);
+            width: 10px;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--dark-foreground);
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+            margin: 20px 0px;
+        }
+
+        @media (max-width: 768px) {
+            .header img {
+                width: 150px;
+            }
+            .header .title {
+                font-size: 2.0em;
+            }
+            .header .subtitle {
+                font-size: 1.0em;
+            }
+            .create-button {
+                font-size: 1.3em;
+                height: 50px;
+            }
+            .join-container input {
+                font-size: 1.1em;
+                padding: 10px 20px;
+            }
+            .join-container .join-button {
+                font-size: 1.3em;
+                height: 50px;
+            }
+        }
+    </style>
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .area{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background: -webkit-linear-gradient(to left, var(--background), var(--accent));
+            background: var(--background);
+            width: 100%;
+            height:100vh;
+        }
+
+        .circles{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .circles li{
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 25%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: animate 20s linear infinite;
+            bottom: -150px;
+        }
+
+        .circles li:nth-child(1){
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+            background: rgb(255, 59, 109, 0.1);
+        }
+
+        .circles li:nth-child(2){
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+            background: rgb(5, 142, 210, 0.1);
+        }
+
+        .circles li:nth-child(3){
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+            background: rgb(17, 207, 191, 0.1);
+        }
+
+        .circles li:nth-child(4){
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+            background: rgb(255, 139, 29, 0.1);
+        }
+
+        .circles li:nth-child(5){
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+            background: rgb(138, 16, 86, 0.1);
+        }
+
+        .circles li:nth-child(6){
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+            background: rgb(41, 91, 131, 0.1);
+        }
+
+        .circles li:nth-child(7){
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+            background: rgb(255, 145, 102, 0.1);
+        }
+
+        .circles li:nth-child(8){
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+            background: rgb(254, 43, 100, 0.1);
+        }
+
+        .circles li:nth-child(9){
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+            background: rgb(255, 189, 101, 0.1);
+        }
+
+        .circles li:nth-child(10){
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+            background: rgb(255, 102, 128, 0.1);
+        }
+
+        @keyframes animate {
+
+            0%{
+                transform: translateY(0) rotate(0deg);
+                scale: 1;
+                filter: blur(0px);
+                opacity: 1;
+            }
+
+            50%{
+                filter: blur(0px);
+            }
+
+            100%{
+                transform: translateY(-1000px) rotate(720deg);
+                scale: 1.5;
+                filter: blur(20px);
+                opacity: 0;
+            }
+
+        }
+    </style>
+</head>
+
+<audio id="global-audio">
+    <source src="/media/background-music.mp3" type="audio/mpeg">
+    Dein Browser unterstützt dieses Audio-Element nicht.
+</audio>
+<body>
+<div class="area" >
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div >
+<div class="container">
+    <div class="centered">
+        <div class="header">
+            <img src="/media/logo.png">
+            <label class="title">Privacy - Online</label>
+            <div class="typewriter">
+                <label class="subtitle">Wie gut kennst du deine Freunde?</label>
+            </div>
+        </div>
+
+        <div class="create-container">
+            <div class="create-options" id="options">
+                <div class="checkbox-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                        <path d="M428.3 3c11.6-6.4 26.2-2.3 32.6 9.3l4.8 8.7c19.3 34.7 19.8 75.7 3.4 110C495.8 159.6 512 197.9 512 240c0 18.5-3.1 36.3-8.9 52.8c-6.1 17.3-28.5 16.3-36.8-.1l-11.7-23.4c-4.1-8.1-12.4-13.3-21.5-13.3L360 256c-13.3 0-24-10.7-24-24l0-80c0-13.3-10.7-24-24-24l-17.1 0c-21.3 0-30-23.9-10.8-32.9C304.7 85.4 327.7 80 352 80c28.3 0 54.8 7.3 77.8 20.2c5.5-18.2 3.7-38.4-6-55.8L419 35.7c-6.4-11.6-2.3-26.2 9.3-32.6zM171.2 345.5L264 160l40 0 0 80c0 26.5 21.5 48 48 48l76.2 0 23.9 47.8C372.3 443.9 244.3 512 103.2 512l-58.8 0C19.9 512 0 492.1 0 467.6c0-20.8 14.5-38.8 34.8-43.3l49.8-11.1c37.6-8.4 69.5-33.2 86.7-67.7z"/></svg>
+                    <label class="checkbox-title">Spicy</label>
+                    <input type="checkbox" class="checkbox" id="questions-spicy" checked>
+                </div>
+
+                <div class="checkbox-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
+                    <label class="checkbox-title">Normal</label>
+                    <input type="checkbox" class="checkbox" id="questions-regular">
+                </div>
+            </div>
+            <div class="loading-container" id="loading">
+                <span class="loader" id="loader"></span>
+                <label id="response">Erstelle neue lobby</label>
+            </div>
+            <button class="create-button" id="create-room">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
+                Raum erstellen
+            </button>
+        </div>
+
+        <label class="divider">
+            oder
+        </label>
+
+        <div class="join-container">
+            <input type="text" placeholder="Raum Code eingeben" id="code-insert" pattern=".{5,5}" required>
+            <button class="join-button" id="join-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+                Join
+            </button>
+        </div>
+    </div>
+
+    <div class="audio-settings" id="audio-settings">
+        <div class="audio-slide" id="audio-slider">
+            <input type="range" min="0" max="100" step="1" value="5">
+        </div>
+        <svg id="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path d="M301.1 34.8C312.6 40 320 51.4 320 64l0 384c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352 64 352c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l67.8 0L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6 181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z"/></svg>
+    </div>
+
+    <label class="footer">
+        © 2025 Ronny & Julii
+    </label>
+</div>
+</body>
+<script>
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function disableJoinButton() {
+        const joinButton = document.getElementById("join-button");
+        const codeInput = document.getElementById("code-insert");
+        joinButton.disabled = true;
+        codeInput.disabled = true;
+        joinButton.style.opacity = "0.5";
+        codeInput.style.opacity = "0.5";
+        joinButton.style.pointerEvents = "none";
+        codeInput.style.pointerEvents = "none";
+    }
+
+    function enableJoinButton() {
+        const joinButton = document.getElementById("join-button");
+        const codeInput = document.getElementById("code-insert");
+        joinButton.disabled = false;
+        codeInput.disabled = false;
+        joinButton.style.opacity = "1";
+        codeInput.style.opacity = "1";
+        joinButton.style.pointerEvents = "auto";
+        codeInput.style.pointerEvents = "auto";
+    }
+
+    const slider = document.querySelector("input[type='range']");
+
+    function updateSliderFill() {
+        const value = slider.value;
+        const max = slider.max;
+        const fillHeight = (value / max) * 100;
+
+        slider.style.setProperty("--slider-value", `${fillHeight}%`);
+    }
+
+    updateSliderFill();
+
+    slider.addEventListener("input", updateSliderFill);
+</script>
+
+<script>
+    let uuid = localStorage.getItem("uuid");
+    if (!uuid) {
+        uuid = generateUUID();
+        localStorage.setItem("uuid", uuid);
+    }
+
+    const spicyElement = document.getElementById("questions-spicy");
+    const regularElement = document.getElementById("questions-regular");
+
+    // prevent both checkboxes from being unchecked
+    spicyElement.addEventListener("change", () => {
+        if (!spicyElement.checked && !regularElement.checked) {
+            spicyElement.checked = true;
+        }
+    });
+    regularElement.addEventListener("change", () => {
+        if (!spicyElement.checked && !regularElement.checked) {
+            regularElement.checked = true;
+        }
+    });
+
+    const createButton = document.getElementById("create-room");
+    createButton.addEventListener("click", () => {
+        const options = document.getElementById("options");
+        const spicy = spicyElement.checked;
+        const regular = regularElement.checked;
+        const loading = document.querySelector("#loading");
+        loading.style.display = "flex";
+        createButton.disabled = true;
+        createButton.style.opacity = "0";
+        options.style.opacity = "0";
+        disableJoinButton();
+        setTimeout(() => {
+            createButton.style.display = "none";
+        options.style.display = "none";
+        }, 500);
+
+        const responseLabel = document.getElementById("response");
+        const loader = document.getElementById("loader");
+        fetch("/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                decks : {
+                    spicy: spicy,
+                    regular: regular
+                },
+                uuid: uuid
+            })
+            // turn answer into json
+        }).then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                return response.json().then(data => {
+                    throw new Error(data.message);
+                });
+            }
+        }).then(data => {
+            if (data.statusCode === 200) {
+                window.location.href = "/lobby?code=" + data.identifier;
+            } else {
+                responseLabel.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+                    Fehler
+                    <span>${data.appendix}</span>
+                `;
+                loader.style.display = "none";
+                enableJoinButton();
+            }
+        }).catch(error => {
+            responseLabel.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+                    Fehler
+                    <span>Versuch es zu einem späteren Zeitpunkt nochmal</span>
+                `;
+            loader.style.display = "none";
+            enableJoinButton();
+        });
+    });
+
+    const joinButton = document.getElementById("join-button");
+    joinButton.addEventListener("click", () => {
+        const code = document.getElementById("code-insert").value;
+
+        if (code === "" || code.length !== 5) {
+            return;
+        }
+
+        document.location.href = "/lobby?code=" + code;
+    });
+
+    let audioStarted = false;
+    const audioPlayer = document.getElementById("global-audio");
+    document.addEventListener("click", () => {
+        if (audioStarted) {
+            return;
+        }
+        audioPlayer.loop = true;
+        // use storage for volume
+        const volume = localStorage.getItem("audioVolume");
+        if (volume) {
+            audioPlayer.volume = volume / 100;
+        } else {
+            audioPlayer.volume = 0.05;
+        }
+        audioPlayer.currentTime = localStorage.getItem("audioCurrentTime") || 0;
+        audioPlayer.play().catch(error => console.error("Fehler beim Abspielen:", error));
+        audioStarted = true;
+    });
+
+    slider.addEventListener("input", () => {
+        audioPlayer.volume = slider.value / 100;
+        localStorage.setItem("audioVolume", slider.value);
+    });
+    window.addEventListener("load", () => {
+        const volume = localStorage.getItem("audioVolume");
+        audioPlayer.volume = volume / 100;
+        slider.value = volume;
+        updateSliderFill();
+    });
+
+    const audioSettings = document.getElementById("audio-settings");
+    const audioSlider = document.getElementById("audio-slider");
+    // show audio slider when enter and hide when leave
+    audioSettings.addEventListener("mouseenter", () => {
+        // grow audioSettings
+        audioSettings.style.height = "220px";
+        audioSlider.style.display = "flex";
+    });
+    audioSettings.addEventListener("mouseleave", () => {
+        audioSettings.style.height = "50px";
+        audioSlider.style.display = "none";
+    });
+
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("audioCurrentTime", audioPlayer.currentTime);
+    });
+</script>
+</html>

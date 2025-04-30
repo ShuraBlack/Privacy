@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /room
+Disallow: /privacy
+Disallow: /terms
+Disallow: /contact

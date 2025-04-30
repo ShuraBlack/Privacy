@@ -11,7 +11,9 @@ electron/*
 .idea/*
 certificate/*
 *.MF
-resources/*
+resources/media/*
+resources/questions/*
+resources/certificate.jks
 electron
 
 # Gradle and Maven with auto-import
