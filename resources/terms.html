@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Written by ShuraBlack https://github.com/ShuraBlack-->
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Privacy Online</title>
+    <link rel="icon" type="image/png" href="/media/favicon.png">
+    <meta name="title" content="Privacy Online" />
+    <meta name="description" content="Wie gut kennst du deine Freunde?" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Root level -->
+    <style>
+        :root {
+            --background: rgb(17,23,34);
+            --primary: rgb(28,37,49);
+            --select: rgb(55,65,81);
+            --light-primary: rgb(34,44,58);
+            --secondary: rgb(34,36,41);
+            --light-secondary: rgb(88,88,90);
+            --foreground: rgb(255,255,255);
+            --dark-foreground: rgb(156,163,175);
+            --darkest-foreground: rgb(46,53,65);
+            --accent: rgb(23, 130, 197);
+            --red: rgb(248,113,113);
+            --vibrant-red: rgb(239,68,68);
+            --dark-red: rgb(50,45,56);
+            --green: rgb(21,128,61);
+
+            --standard: rgb(209,213,219);
+            --refined: rgb(74,114,206);
+            --premium: rgb(31,214,11);
+            --epic: rgb(192,57,43);
+            --legendary: rgb(247,189,30);
+            --mystic: rgb(242,135,0);
+
+            --frosty: rgb(103, 226, 235);
+            --spring: rgb(255, 182, 193);
+        }
+        body {
+            background-color: var(--background);
+
+            -webkit-user-select: none;  /* Chrome, Safari, Opera */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE/Edge */
+            user-select: none;          /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .container * {
+            font-family: 'Roboto', Helvetica, sans-serif;
+        }
+
+        .centered {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glass {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: var(--background);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--darkest-foreground);
+        }
+
+        .back {
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.4em;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .back svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: var(--foreground);
+            transition: 0.3s ease;
+        }
+        .back:hover {
+            outline: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+        .back:hover svg {
+            fill: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+    </style>
+
+    <!-- Header -->
+    <style>
+        .header {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .header img {
+            width: 75px;
+            height: auto;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+        }
+        .header .title {
+            font-size: 2.3em;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+        .header .subtitle {
+            display: flex;
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+        }
+    </style>
+
+    <!-- Text formatting -->
+    <style>
+        header {
+            width: 90%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            font-size: 2.0em;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+        header p {
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+        }
+
+        section {
+            width: 96%;
+            max-width: 700px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        section h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+        section ul {
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+            margin-left: 20px;
+        }
+        section p {
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+            margin-bottom: 10px;
+        }
+        section ul li {
+            margin-bottom: 10px;
+        }
+        section ul li a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        section ul li a:hover {
+            text-decoration: underline;
+        }
+
+
+    </style>
+
+    <!-- Footer -->
+    <style>
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            bottom: 0;
+            font-size: 1.0em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+            margin: 20px 0px;
+        }
+        .footer .creator {
+            font-size: 0.8em;
+            font-weight: 100;
+            color: var(--accent);
+            margin-left: 5px;
+        }
+    </style>
+
+    <!-- Background -->
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .area{
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+            background: -webkit-linear-gradient(to left, var(--background), var(--accent));
+            background: var(--background);
+            width: 100%;
+            height: 110%;
+        }
+
+        .circles{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .circles li{
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 25%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: animate 20s linear infinite;
+            bottom: -150px;
+        }
+
+        .circles li:nth-child(1){
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+            background: rgb(255, 59, 109, 0.1);
+        }
+
+        .circles li:nth-child(2){
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+            background: rgb(5, 142, 210, 0.1);
+        }
+
+        .circles li:nth-child(3){
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+            background: rgb(17, 207, 191, 0.1);
+        }
+
+        .circles li:nth-child(4){
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+            background: rgb(255, 139, 29, 0.1);
+        }
+
+        .circles li:nth-child(5){
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+            background: rgb(138, 16, 86, 0.1);
+        }
+
+        .circles li:nth-child(6){
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+            background: rgb(41, 91, 131, 0.1);
+        }
+
+        .circles li:nth-child(7){
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+            background: rgb(255, 145, 102, 0.1);
+        }
+
+        .circles li:nth-child(8){
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+            background: rgb(254, 43, 100, 0.1);
+        }
+
+        .circles li:nth-child(9){
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+            background: rgb(255, 189, 101, 0.1);
+        }
+
+        .circles li:nth-child(10){
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+            background: rgb(255, 102, 128, 0.1);
+        }
+
+        @keyframes animate {
+
+            0%{
+                transform: translateY(0) rotate(0deg);
+                scale: 1;
+                filter: blur(0px);
+                opacity: 1;
+            }
+
+            50%{
+                filter: blur(0px);
+            }
+
+            100%{
+                transform: translateY(-1000px) rotate(720deg);
+                scale: 1.5;
+                filter: blur(20px);
+                opacity: 0;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="centered">
+        <div class="header">
+            <img src="/media/logo.png">
+            <div class="header-text">
+                <label class="title">Privacy - Online</label>
+                <label class="subtitle">Wie gut kennst du deine Freunde?</label>
+            </div>
+        </div>
+
+        <button class="back" id="back">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
+            Zurück zur Startseite
+        </button>
+
+        <div class="glass">
+            <header>
+                <h1>Nutzungsbedingungen („Terms of Service“)</h1>
+                <p><strong>Gültig ab:</strong> 30.04.2025</p>
+                <p><strong>Letzte Aktualisierung:</strong> 30.04.2025</p>
+            </header>
+
+            <section>
+                <h2>1. Allgemeine Bedingungen</h2>
+                <p>Diese Nutzungsbedingungen regeln das Verhältnis zwischen dir als Nutzer („du“) und dem Betreiber („wir“).</p>
+                <ul>
+                    <li>Die Nutzung der Website ist kostenlos und erfolgt nur zu persönlichen, nicht-kommerziellen Zwecken.</li>
+                    <li>Wenn du nicht zustimmst, solltest du die Website nicht verwenden.</li>
+                    <li>Wir können die Website jederzeit ändern oder einstellen.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>2. Bereitstellung der Website</h2>
+                <ul>
+                    <li>Die Website ermöglicht die digitale Version des Brettspiels „Privacy“.</li>
+                    <li>Es gibt keine Garantie für Verfügbarkeit oder Fehlerfreiheit.</li>
+                    <li>Direkte Zugriffe auf interne APIs außerhalb der Webseite sind nicht erlaubt.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>3. Geistiges Eigentum und Nutzung externer Inhalte</h2>
+                <ul>
+                    <li>Alle Inhalte auf der Website sind urheberrechtlich geschützt.</li>
+                    <li>Externe Assets: <a href="https://fontawesome.com/">FontAwesome</a> (Icons) und <a href="https://www.youtube.com/watch?v=kWtt-1h3yeE">Infraction</a> (Musik).</li>
+                    <li>Die Nutzung dieser Drittanbieter-Inhalte erfolgt gemäß deren Lizenzbedingungen.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>4. Datenschutz und Datenerhebung</h2>
+                <ul>
+                    <li>Es werden keine personenbezogenen Daten gespeichert.</li>
+                    <li>IP-Adressen werden nur für die Dauer der Nutzung verarbeitet.</li>
+                    <li>Es können serverseitige Logs zu Wartungszwecken existieren.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>5. Haftungsausschluss</h2>
+                <ul>
+                    <li>Die Nutzung der Website erfolgt auf eigene Gefahr.</li>
+                    <li>Wir übernehmen keine Verantwortung für Schäden durch die Nutzung der Website.</li>
+                    <li>Keine Haftung für externe Inhalte wie FontAwesome oder Infraction.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>6. Änderungen der Nutzungsbedingungen</h2>
+                <ul>
+                    <li>Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern.</li>
+                    <li>Änderungen treten mit Veröffentlichung auf der Website in Kraft.</li>
+                    <li>Falls eine Bestimmung unwirksam ist, bleibt der Rest gültig.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>7. Nutzung durch Minderjährige</h2>
+                <ul>
+                    <li>Die Website ist nicht speziell für Kinder oder Minderjährige konzipiert.</li>
+                    <li>Falls Minderjährige die Website nutzen, liegt die Verantwortung für deren Nutzung bei den Erziehungsberechtigten.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>8. Verbotene Aktivitäten</h2>
+                <ul>
+                    <li>Die Nutzung der Website für rechtswidrige Zwecke ist untersagt.</li>
+                    <li>Es ist verboten, die Website oder deren Systeme durch Hacking, Manipulation oder andere nicht vorgesehene Methoden zu verändern oder zu missbrauchen.</li>
+                    <li>Jegliche Form von automatisierter Datenauslesung oder Scraping ist nicht gestattet.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>9. Fehlerberichte</h2>
+                <ul>
+                    <li>Es besteht kein direkter Support für diese Website.</li>
+                    <li>Falls du auf Fehler oder Bugs stößt, kannst du diese auf der folgenden Plattform melden: <a href="https://github.com/ShuraBlack/Privacy">Github Repository</a></li>
+                    <li>Der Betreiber übernimmt keine Garantie für individuelle Fehlerbehebungen oder Support-Anfragen.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>10. Schlussbestimmungen</h2>
+                <ul>
+                    <li>Es gilt das Recht des Landes, in dem der Betreiber seinen Sitz hat.</li>
+                    <li>Streitigkeiten unterliegen der Gerichtsbarkeit der zuständigen Gerichte.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 style="text-align: center">
+                Ende der Nutzungsbedingungen
+                </h2>
+            </section>
+        </div>
+    </div>
+
+    <label class="footer">
+        © 2025 PrivacyOn. All rights reserved.
+        <span class="creator">by Ronny & Julii</span>
+    </label>
+</div>
+
+<!-- Absolute page content -->
+<div class="area" >
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<!-- Event listeners -->
+<script>
+    document.getElementById("back").addEventListener("click", function() {
+        window.location.href = "/";
+    });
+</script>
+</body>
+</html>

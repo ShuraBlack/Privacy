@@ -200,23 +200,29 @@
 
         .create-options {
             display: flex;
-            width: 100%;
-            justify-content: space-around;
-            align-items: center;
-            gap: 20px;
+            width: 90%;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 10px;
             outline: 1px solid var(--primary);
             padding: 10px;
             border-radius: 5px;
             backdrop-filter: blur(5px);
             transition: 0.3s ease;
         }
+        .create-options .create-options-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--darkest-foreground);
+        }
         .checkbox-container {
             display: flex;
             width: 100%;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             flex-direction: row;
-            gap: 10px;
+            gap: 15px;
         }
         .checkbox {
             width: 20px;
@@ -242,11 +248,15 @@
             font-size: 1.2em;
             color: var(--foreground);
         }
+        .checkbox-title span {
+            font-size: 0.8em;
+            color: var(--dark-foreground);
+        }
         .checkbox-container svg {
-            width: 20px;
-            max-width: 20px;
-            height: 20px;
-            max-height: 20px;
+            width: 25px;
+            max-width: 25px;
+            height: 25px;
+            max-height: 25px;
             fill: var(--darkest-foreground);
         }
 
@@ -261,7 +271,7 @@
             flex-direction: column;
         }
         .join-container input {
-            width: 100%;
+            width: 90%;
             height: auto;
             padding: 10px;
             background-color: var(--primary);
@@ -291,7 +301,7 @@
             width: 90%;
             justify-content: center;
             align-items: center;
-            padding: 10px 50px;
+            padding: 10px;
             background-color: var(--primary);
             color: var(--foreground);
             border: none;
@@ -438,6 +448,7 @@
             width: 50px;
             height: 50px;
             display: flex;
+            opacity: 0.4;
             justify-content: space-around;
             align-items: center;
             flex-direction: column;
@@ -525,11 +536,40 @@
     <style>
         .footer {
             position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             bottom: 0;
             font-size: 1.0em;
             font-weight: 100;
             color: var(--dark-foreground);
             margin: 20px 0px;
+        }
+        .footer .creator {
+            font-size: 0.8em;
+            font-weight: 100;
+            color: var(--accent);
+            margin-left: 5px;
+        }
+
+        .footer .links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 10px;
+        }
+        .footer .links a {
+            font-size: 0.8em;
+            font-weight: 100;
+            color: var(--dark-foreground);
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+        .footer .links a:hover {
+            color: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent));
         }
     </style>
 
@@ -702,6 +742,7 @@
 
             <div class="create-container">
                 <div class="create-options" id="options">
+                    <label class="create-options-title">Fragen</label>
                     <div class="checkbox-container">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
                             <path d="M428.3 3c11.6-6.4 26.2-2.3 32.6 9.3l4.8 8.7c19.3 34.7 19.8 75.7 3.4 110C495.8 159.6
@@ -710,7 +751,7 @@
                             352 80c28.3 0 54.8 7.3 77.8 20.2c5.5-18.2 3.7-38.4-6-55.8L419 35.7c-6.4-11.6-2.3-26.2 9.3-32.6zM171.2
                             345.5L264 160l40 0 0 80c0 26.5 21.5 48 48 48l76.2 0 23.9 47.8C372.3 443.9 244.3 512 103.2 512l-58.8
                             0C19.9 512 0 492.1 0 467.6c0-20.8 14.5-38.8 34.8-43.3l49.8-11.1c37.6-8.4 69.5-33.2 86.7-67.7z"/></svg>
-                        <label class="checkbox-title">Spicy</label>
+                        <label class="checkbox-title">Spicy <span>(215)</span></label>
                         <input type="checkbox" class="checkbox" id="questions-spicy" checked>
                     </div>
 
@@ -718,7 +759,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
                             <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0
                             498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
-                        <label class="checkbox-title">Normal</label>
+                        <label class="checkbox-title">Normal <span>(144)</span></label>
                         <input type="checkbox" class="checkbox" id="questions-regular">
                     </div>
                 </div>
@@ -754,7 +795,12 @@
         </div>
 
         <label class="footer">
-            © 2025 Ronny & Julii
+            <div class="links">
+                <a href="/privacy" target="_blank">Datenschutz</a>
+                <a href="/terms" target="_blank">Nutzerbedingungen</a>
+            </div>
+            © 2025 PrivacyOn. All rights reserved.
+            <span class="creator">by Ronny & Julii</span>
         </label>
     </div>
 
@@ -984,10 +1030,12 @@
                // grow audioSettings
                audioSettings.style.height = "220px";
                audioSlider.style.display = "flex";
+               audioSettings.style.opacity = "1";
            });
            audioSettings.addEventListener("mouseleave", () => {
                audioSettings.style.height = "50px";
                audioSlider.style.display = "none";
+               audioSettings.style.opacity = "0.4";
            });
     </script>
 </body>

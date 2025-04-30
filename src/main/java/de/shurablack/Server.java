@@ -60,6 +60,8 @@ public class Server {
             pageStore.addPage("/", new Page("resources/index.html"));
             pageStore.addPage("/lobby", new Page("resources/lobby.html"));
             pageStore.addPage("/game", new Page("resources/game.html"));
+            pageStore.addPage("/privacy", new Page("resources/privacy.html"));
+            pageStore.addPage("/terms", new Page("resources/terms.html"));
             StaticPageHandler pageHandler = new StaticPageHandler(pageStore);
 
             LOGGER.info("Create default contexts for https server...");
@@ -67,6 +69,8 @@ public class Server {
             this.https.createContext("/create", new GameCreateHandler(this));
             this.https.createContext("/lobby", pageHandler);
             this.https.createContext("/game", pageHandler);
+            this.https.createContext("/privacy", pageHandler);
+            this.https.createContext("/terms", pageHandler);
             this.https.createContext("/media", new MediaHandler());
         } catch (IOException e) {
             LOGGER.error("Failed to create HTTPS server: {}", e.getMessage());

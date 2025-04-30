@@ -31,6 +31,31 @@ public class MediaHandler extends RequestHandler {
             request.addResponseHeader("Accept-Ranges", "bytes 0-" + (mediaEntry.getData().length - 1));
         }
 
+        // if it contains a range header, we need to send a partial response
+        String rangeHeader = request.getOrigin().getRequestHeaders().getFirst("Range");
+        if (rangeHeader != null && rangeHeader.startsWith("bytes=")) {
+            String[] ranges = rangeHeader.substring(6).split("-");
+            long start = Long.parseLong(ranges[0]);
+            long end = ranges.length > 1 ? Long.parseLong(ranges[1]) : mediaEntry.getData().length - 1;
+
+            if (start >= mediaEntry.getData().length || end >= mediaEntry.getData().length) {
+                request.sendEmptyResponse(416);
+                return;
+            }
+
+            byte[] partialData = new byte[(int) (end - start + 1)];
+            System.arraycopy(mediaEntry.getData(), (int) start, partialData, 0, partialData.length);
+
+            request.addResponseHeader("Accept-Ranges", "bytes");
+            request.addResponseHeader("Content-Length", String.valueOf(partialData.length));
+            request.addResponseHeader("Content-Range", "bytes " + start + "-" + end + "/" + mediaEntry.getData().length);
+            request.sendResponseWithClose(206, partialData, mediaEntry.getType());
+            return;
+        }
+
+        request.addResponseHeader("Accept-Ranges", "bytes");
+        request.addResponseHeader("Content-Length", String.valueOf(mediaEntry.getData().length));
+        request.addResponseHeader("Content-Range", "bytes 0-" + (mediaEntry.getData().length - 1) + "/" + mediaEntry.getData().length);
         request.sendResponseWithClose(200, mediaEntry.getData(), mediaEntry.getType());
     }
 

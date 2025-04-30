@@ -537,6 +537,7 @@
             width: 50px;
             height: 50px;
             display: flex;
+            opacity: 0.4;
             justify-content: space-around;
             align-items: center;
             flex-direction: column;
@@ -624,11 +625,21 @@
     <style>
         .footer {
             position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             bottom: 0;
             font-size: 1.0em;
             font-weight: 100;
             color: var(--dark-foreground);
             margin: 20px 0px;
+        }
+        .footer .creator {
+            font-size: 0.8em;
+            font-weight: 100;
+            color: var(--accent);
+            margin-left: 5px;
         }
     </style>
 
@@ -827,7 +838,8 @@
         </div>
 
         <label class="footer">
-            © 2025 Ronny & Julii
+            © 2025 PrivacyOn. All rights reserved.
+            <span class="creator">by Ronny & Julii</span>
         </label>
     </div>
 
@@ -1235,15 +1247,17 @@
         const audioSettings = document.getElementById("audio-settings");
         const audioSlider = document.getElementById("audio-slider");
         // show audio slider when enter and hide when leave
-        audioSettings.addEventListener("mouseenter", () => {
-            // grow audioSettings
-            audioSettings.style.height = "220px";
-            audioSlider.style.display = "flex";
-        });
-        audioSettings.addEventListener("mouseleave", () => {
-            audioSettings.style.height = "50px";
-            audioSlider.style.display = "none";
-        });
+           audioSettings.addEventListener("mouseenter", () => {
+               // grow audioSettings
+               audioSettings.style.height = "220px";
+               audioSlider.style.display = "flex";
+               audioSettings.style.opacity = "1";
+           });
+           audioSettings.addEventListener("mouseleave", () => {
+               audioSettings.style.height = "50px";
+               audioSlider.style.display = "none";
+               audioSettings.style.opacity = "0.4";
+           });
     </script>
 </body>
 </html>
