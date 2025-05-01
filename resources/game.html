@@ -1014,7 +1014,6 @@
         const encodedNickname = CSS.escape(memberId);
         const member = document.getElementById(encodedNickname);
         if (member) {
-            console.log(`Removing member: ${memberId}`);
             member.remove();
         }
     }
@@ -1149,7 +1148,6 @@
     }
 
     function runWebsocketClose(message) {
-        console.log('WebSocket closed:', message);
         const progressContainer = document.getElementById('progress-container');
         const questionContainer = document.getElementById('question-container');
         const answerContainer = document.getElementById('answer-container');
@@ -1268,7 +1266,7 @@
 <script>
     const socket = new WebSocket(`wss://${window.location.hostname}:433/${code}?uuid=${uuid}`);
     socket.addEventListener('open', function (event) {
-        console.log('Connected to server');
+        console.log('Connection to websocket established');
     });
 
     socket.addEventListener('close', function (event) {
@@ -1316,12 +1314,11 @@
                 });
                 break;
             case 'game.leave':
-                console.log(data.nickname + " hat das Spiel verlassen");
                 removeMember(data.nickname);
                 showNotification(data.nickname + " hat das Spiel verlassen");
                 playerCount = document.querySelector('.member-list').querySelectorAll('.member').length;
                 if (playerCount <= 1) {
-                    socket.close(1003, "Es sind nicht genug Spieler im Spiel");
+                    socket.close(1000, "Es sind nicht genug Spieler im Spiel");
                     runWebsocketClose("Es sind nicht genug Spieler im Spiel");
                 }
                 // change other answer buttons
@@ -1329,13 +1326,12 @@
                 .querySelector('.other-answer')
                 .querySelectorAll('button')
                 .forEach((button, index) => {
-                    if (index > data.maxPlayerCount) {
+                    if (index > playerCount) {
                         button.style.display = 'none';
                     } else {
                         button.style.display = 'flex';
                     }
                 });
-
                 break;
             case 'game.host_update':
                 host = true;
@@ -1374,6 +1370,7 @@
                 break;
             case 'game.restart':
                 resetAll();
+                startCountdown(data.timeTillNext);
                 break;
             default:
                 console.log('Unknown message type:', data.type);

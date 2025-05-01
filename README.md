@@ -29,7 +29,7 @@ To run the project locally, follow these steps:
 
 ### Additional Resources
 - [Icons](https://fontawesome.com/)
-- [Music | Stylish Fashion Retro Pop by Infraction](https://www.youtube.com/watch?v=kWtt-1h3yeE)
+- [Music | Wavy Strut - Tetuano](https://freetouse.com/music/tetuano/wavy-strut)
 
 ### 🛠️ License
 This project is licensed under the Apache 2.0 License. More details can be found in the `LICENSE.md` file.

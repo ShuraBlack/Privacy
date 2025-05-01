@@ -334,12 +334,12 @@ public class LobbyEndpoint {
             return;
         }
 
+        timeTillNextTask = Time.getPlusSeconds(5);
         for (Connection u : this.clients) {
-            u.send(Response.gameRestart());
+            u.send(Response.gameRestart(timeTillNextTask));
             u.resetAll();
         }
 
-        timeTillNextTask = Time.getPlusSeconds(5);
         currentTask = getGameLoop();
         GlobalTimer.schedule(currentTask, 5000);
     }

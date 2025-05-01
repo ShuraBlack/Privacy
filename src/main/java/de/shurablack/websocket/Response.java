@@ -169,9 +169,10 @@ public class Response {
         return response.toString();
     }
 
-    public static String gameRestart() {
+    public static String gameRestart(long timeTillNext) {
         JSONObject response = new JSONObject();
         response.put("type", "game.restart");
+        response.put("timeTillNext", timeTillNext);
         return response.toString();
     }
 
