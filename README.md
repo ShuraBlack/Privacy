@@ -12,16 +12,15 @@
 - User-friendly interface
 - Open-source project
 
-## 🚀 Installation & Setup
-To run the project locally, follow these steps:
+## 🚀 Project info
 
 ### Technologies Used
 - Java (JDK 11 or newer)
 - Maven (for dependency management)
 
-> The project showcases the website functionality and does not necessarily need to be cloned.
+> This project is just a representation and can be used absolutely free on the given page.
 
-## 📦 Dependencies
+### 📦 Dependencies
 - Logging (log4j-core, slf4j-api)
 - Data handling (org.json, javax.xml.bind)
 - Websocket (org.java-websocket)
@@ -31,7 +30,7 @@ To run the project locally, follow these steps:
 - [Icons](https://fontawesome.com/)
 - [Music | Wavy Strut - Tetuano](https://freetouse.com/music/tetuano/wavy-strut)
 
-### 🛠️ License
+## 🛠️ License
 This project is licensed under the Apache 2.0 License. More details can be found in the `LICENSE.md` file.
 
 ## 👥 Authors & Contributors
